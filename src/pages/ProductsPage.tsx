@@ -3,6 +3,7 @@ import ProductsCard from "@/components/ProductsCard";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const ProductsPage = () => {
   const { results, isLoading } = useGetProducts({ page: 1 });
@@ -29,8 +30,8 @@ const ProductsPage = () => {
 
       {/* View More Button */}
       <div className="mt-5 flex justify-center">
-        <a
-          href="/products"
+        <Link
+          to="/products"
           className="group inline-flex items-center gap-2 rounded-md border border-black px-6 py-2 text-black font-medium transition-all hover:bg-[#DDD0C8] hover:text-[#323232] hover:shadow-md"
         >
           <span>View More</span>
@@ -45,7 +46,7 @@ const ProductsPage = () => {
           >
             <path d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
-        </a>
+        </Link>
       </div>
     </div>
   );

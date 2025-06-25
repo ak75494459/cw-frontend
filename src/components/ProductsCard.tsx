@@ -1,4 +1,5 @@
 import type { Product } from "@/types";
+import { Link } from "react-router-dom";
 
 type Props = {
   results: Product[];
@@ -31,8 +32,8 @@ const ProductsCard = ({ results, isLoading }: Props) => {
           : item.price;
 
         return (
-          <a
-            href={`/products/${item._id}`}
+          <Link
+            to={`/products/${item._id}`}
             key={item._id}
             className=" m-5"
             onClick={() => {
@@ -78,7 +79,7 @@ const ProductsCard = ({ results, isLoading }: Props) => {
                 )}
               </div>
             </div>
-          </a>
+          </Link>
         );
       })}
     </div>

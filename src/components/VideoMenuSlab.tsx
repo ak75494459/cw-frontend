@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import video from "../assets/video.mp4";
+import { Link } from "react-router-dom";
 
 const VideoMenuSlab = () => {
   const [hideHeader, setHideHeader] = useState(false);
@@ -49,13 +50,13 @@ const VideoMenuSlab = () => {
       {!hideHeader && (
         <div className="fixed top-[7.3rem] left-1/2 z-50 transform -translate-x-1/2 w-full flex justify-center gap-10 p-5 max-md:hidden">
           {mainMenuLinks.map((item, idx) => (
-            <a
+            <Link
               key={idx}
-              href={item.to}
+              to={item.to}
               className="text-white text-lg font-semibold hover:text-pink-400 transition duration-300 transform hover:scale-105"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
       )}
@@ -75,13 +76,13 @@ const VideoMenuSlab = () => {
             {showCollections && (
               <div className="absolute top-full  bg-black/70 rounded-md px-4 py-3 text-white shadow-xl space-y-2 text-sm min-w-[140px]">
                 {collectionsLinks.map((link, idx) => (
-                  <a
+                  <Link
                     key={idx}
-                    href={link.to}
+                    to={link.to}
                     className="block hover:text-pink-400 transition duration-200 whitespace-nowrap"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
@@ -89,13 +90,13 @@ const VideoMenuSlab = () => {
 
           {/* Middle Links */}
           {middleLinks.map((item, idx) => (
-            <a
+            <Link
               key={idx}
-              href={item.to}
+              to={item.to}
               className="text-white text-lg font-semibold hover:text-pink-400 transition duration-300 transform hover:scale-105"
             >
               {item.name}
-            </a>
+            </Link>
           ))}
         </div>
       )}
