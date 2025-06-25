@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import video from "../assets/video.mp4";
 import { Link } from "react-router-dom";
 
 const VideoMenuSlab = () => {
@@ -42,7 +41,10 @@ const VideoMenuSlab = () => {
         preload="metadata"
         className="w-full h-full object-cover"
       >
-        <source src={video} type="video/mp4" />
+        <source
+          src="https://res.cloudinary.com/dmv8kh0yx/video/upload/v1750870796/video_yex1fm.mp4"
+          type="video/mp4"
+        />
         Your browser does not support the video tag.
       </video>
 
