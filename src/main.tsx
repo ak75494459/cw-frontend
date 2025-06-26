@@ -7,6 +7,7 @@ import Auth0ProviderWithNavigate from "./auth/Auth0ProviderWithNavigate.tsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "sonner";
 import { CheckoutProvider } from "./context/CheckOutContext.tsx";
+import ScrollToTop from "./components/ScrollToTop.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
       <QueryClientProvider client={queryClient}>
         <Auth0ProviderWithNavigate>
           <CheckoutProvider>
+            <ScrollToTop />
             <AppRoutes />
             <Toaster visibleToasts={1} position="bottom-right" richColors />
           </CheckoutProvider>
