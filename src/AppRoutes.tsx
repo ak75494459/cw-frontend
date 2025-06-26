@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import { MyCarousel } from "./components/Carousel";
 import VideoMenuSlab from "./components/VideoMenuSlab";
@@ -131,7 +131,7 @@ const AppRoutes = () => {
           />
         ) : null}
       </Route>
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<div>404 – Page Not Found</div>} />
     </Routes>
   );
 };
