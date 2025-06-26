@@ -24,7 +24,7 @@ const ProductsCard = ({ results, isLoading }: Props) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2  py-3">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2  py-3">
       {results.map((item) => {
         const hasDiscount = item.discount && item.discount > 0;
         const discountedPrice = hasDiscount
@@ -40,7 +40,7 @@ const ProductsCard = ({ results, isLoading }: Props) => {
               console.log(item._id);
             }}
           >
-            <div className="relative w-full h-[30rem] overflow-hidden">
+            <div className="relative h-[20rem] w-full md:h-[30rem] overflow-hidden">
               {/* Image 1 (default) */}
               <img
                 src={item.productImages?.[0] || "/placeholder.jpg"}
