@@ -70,7 +70,7 @@ const ProductsCard = ({ results, isLoading }: Props) => {
                       ₹{item.price}
                     </span>
                     ₹{Math.round(discountedPrice)}{" "}
-                    <span className="text-green-600 text-xs ml-1">
+                    <span className="text-green-600 hidden md:inline text-xs ml-1">
                       ({item.discount}% OFF)
                     </span>
                   </>
