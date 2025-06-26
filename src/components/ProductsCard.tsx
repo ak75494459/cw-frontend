@@ -40,7 +40,7 @@ const ProductsCard = ({ results, isLoading }: Props) => {
               console.log(item._id);
             }}
           >
-            <div className="relative h-[20rem] w-full md:h-[30rem] overflow-hidden">
+            <div className="relative h-[15rem] w-full md:h-[30rem] overflow-hidden">
               {/* Image 1 (default) */}
               <img
                 src={item.productImages?.[0] || "/placeholder.jpg"}
