@@ -35,7 +35,7 @@ const SlideshowImage: React.FC<SlideshowImageProps> = ({ slides }) => {
 
         {/* Main Slide */}
         <div
-          className="relative w-full mx-auto aspect-[4/6] overflow-hidden shadow-md cursor-pointer"
+          className="relative w-[70%] h-[70%] lg:w-full md:w-full mx-auto aspect-[4/6] overflow-hidden shadow-md cursor-pointer"
           onClick={() => setIsModalOpen(true)}
         >
           <img
