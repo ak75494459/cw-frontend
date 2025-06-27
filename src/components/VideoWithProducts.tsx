@@ -1,5 +1,5 @@
 import React from "react";
-import video from "@/assets/video.mp4"; // Replace with correct path
+
 
 const imageColumns = [
   [
@@ -18,7 +18,7 @@ const VideoWithGallery: React.FC = () => {
       <div className="w-full   lg:w-[50%] p-5 flex justify-center items-center  ">
         <video
           className="w-[90%] h-[90%] max-md:w-full max-md:h-full   rounded-lg  object-cover"
-          src={video}
+          src="https://res.cloudinary.com/dmv8kh0yx/video/upload/v1750870796/video_yex1fm.mp4"
           autoPlay
           muted
           loop
