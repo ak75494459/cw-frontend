@@ -43,7 +43,7 @@ export const useCreateMyQuery = () => {
 };
 
 export const useGetMyQuery = () => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   const getMyQuery = async () => {
     const accessToken = await getAccessTokenSilently();
@@ -72,6 +72,7 @@ export const useGetMyQuery = () => {
   } = useQuery({
     queryKey: ["fetchQuery"],
     queryFn: getMyQuery,
+    enabled: isAuthenticated,
   });
 
   if (isError && error instanceof Error) {

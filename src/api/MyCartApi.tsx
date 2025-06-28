@@ -50,7 +50,7 @@ export const useCreateAndUpdateCart = () => {
 };
 
 export const useGetMyCartData = () => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   const getMyCartData = async (): Promise<GetCartType> => {
     const accessToken = await getAccessTokenSilently();
@@ -79,6 +79,7 @@ export const useGetMyCartData = () => {
   } = useQuery({
     queryKey: ["fetchCartItem"],
     queryFn: getMyCartData,
+    enabled: isAuthenticated,
   });
 
   if (isError && error instanceof Error) {
@@ -101,7 +102,10 @@ export const useDeleteItem = () => {
   const { getAccessTokenSilently } = useAuth0();
   const queryClient = useQueryClient();
 
-  const deleteItem = async ({ productId, size }: DeleteItemParams): Promise<void> => {
+  const deleteItem = async ({
+    productId,
+    size,
+  }: DeleteItemParams): Promise<void> => {
     const accessToken = await getAccessTokenSilently();
 
     const response = await fetch(`${VITE_API_BASE_URL}/api/cart`, {

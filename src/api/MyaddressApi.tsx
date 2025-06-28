@@ -6,7 +6,7 @@ import { toast } from "sonner";
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useGetMyAddresses = () => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
   const fetchMyAddresses = async (): Promise<UserAddresses> => {
     const accessToken = await getAccessTokenSilently();
@@ -35,6 +35,7 @@ export const useGetMyAddresses = () => {
   } = useQuery({
     queryKey: ["myAddresses"],
     queryFn: fetchMyAddresses,
+    enabled: isAuthenticated,
   });
 
   return {

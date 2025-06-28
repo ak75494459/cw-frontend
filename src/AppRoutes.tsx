@@ -10,7 +10,6 @@ import CreateProductPage from "./pages/CreateProductsPages";
 import { useGetMyUser } from "./api/MyUserApi";
 import ProductsPage from "./pages/ProductsPage";
 import ProductsPaginationPage from "./pages/ProductsPaginationPage";
-import VideoGallayPage from "./pages/VideoGallayPage";
 import ProductMainPage from "./pages/ProductMainPage";
 import CartPage from "./pages/CartPage";
 import CartLayout from "./layouts/CartLayout";
@@ -36,7 +35,6 @@ const AppRoutes = () => {
             <MyCarousel />
             <ProductsPage />
             <VideoWithProducts />
-            <VideoGallayPage />
           </HomeLayout>
         }
       />

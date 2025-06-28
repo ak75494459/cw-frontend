@@ -27,7 +27,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   const [amount, setAmount] = useState<number>(0);
   const [items, setItems] = useState<GetCartType | undefined>(undefined);
   const [paymentMethod, setPaymentMethod] = useState<string>("");
-  console.log(items);
+
   return (
     <CheckoutContext.Provider
       value={{
