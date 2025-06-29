@@ -82,7 +82,7 @@ const UserProfileForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 bg-[#DDD0C8] rounded-md p-6 md:p-10 shadow-sm "
+        className="space-y-6 bg-[#DDD0C8] max-md:bg-white mx-5 rounded-md p-6 md:p-10 shadow-sm "
       >
         <div>
           <h2 className="text-2xl font-bold text-gray-800">{title}</h2>
@@ -179,7 +179,10 @@ const UserProfileForm = ({
         {isLoading ? (
           <LoadingButton />
         ) : (
-          <Button type="submit" className="bg-orange-500 hover:bg-orange-600 w-[20%]">
+          <Button
+            type="submit"
+            className="bg-orange-500 hover:bg-orange-600 w-[20%]"
+          >
             {buttonText}
           </Button>
         )}

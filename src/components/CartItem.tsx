@@ -50,7 +50,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
   };
 
   return (
-    <div className="mt-15 pb-15">
+    <div className="mt-15 pb-25">
       <div className="p-3">
         <h2 className="text-3xl font-bold mb-2 text-gray-800">
           🛍️ Shopping Cart
