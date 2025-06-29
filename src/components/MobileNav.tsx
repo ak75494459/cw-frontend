@@ -12,6 +12,7 @@ import {
   Flame,
   ShoppingCart,
   PlusCircle,
+  User,
 } from "lucide-react";
 import {
   Sheet,
@@ -26,9 +27,12 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import MobileNavLinks from "./MobileNavLink";
+import { useGetMyUser } from "@/api/MyUserApi";
 
 const MobileNav = () => {
   const { isAuthenticated, user, loginWithRedirect } = useAuth0();
+  const { currentUser } = useGetMyUser();
+  const targetId = import.meta.env.VITE_TARGET_ID;
 
   // These links come from your MenuSheet (minus Contact)
   const mainMenuLinks = [
@@ -107,17 +111,26 @@ const MobileNav = () => {
                 to="/cart"
                 className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
               >
+                <User className="w-4 h-4" />
+                User Profile
+              </Link>
+              <Link
+                to="/cart"
+                className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
+              >
                 <ShoppingCart className="w-4 h-4" />
                 View Cart
               </Link>
 
-              <Link
-                to="/add-products"
-                className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
-              >
-                <PlusCircle className="w-4 h-4" />
-                Add Products
-              </Link>
+              {currentUser?._id === targetId && (
+                <Link
+                  to="/add-products"
+                  className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
+                >
+                  <PlusCircle className="w-4 h-4" />
+                  Add Products
+                </Link>
+              )}
             </div>
           </>
         ) : null}
