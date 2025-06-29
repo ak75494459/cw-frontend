@@ -9,7 +9,6 @@ const Collections: React.FC = () => {
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
   ];
 
-  // Responsive detection
   const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
@@ -21,7 +20,6 @@ const Collections: React.FC = () => {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  // Adjust images based on screen size
   const topRow = isMobile
     ? collectionItems.slice(0, 2)
     : collectionItems.slice(0, 3);
@@ -112,6 +110,16 @@ const Collections: React.FC = () => {
               }
             }
           }
+
+          .float-bounce {
+            animation: floatBounce 3s infinite ease-in-out;
+          }
+
+          @keyframes floatBounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+          }
         `}
       </style>
 
@@ -123,17 +131,20 @@ const Collections: React.FC = () => {
               {topRow.map((item, index) => (
                 <div
                   key={index}
-                  className="
+                  className={`
                     bg-white rounded-full border-4 border-[#492822] overflow-hidden
                     w-30 h-30
                     md:w-32 md:h-32
                     lg:w-40 lg:h-40
                     transition-all duration-300
-                  "
+                    float-bounce
+                    animate-delay-${index * 500}
+                  `}
+                  style={{ animationDelay: `${index * 0.5}s` }}
                 >
                   <img
                     src={item}
-                    alt={"Item " + (index + 1)}
+                    alt={`Item ${index + 1}`}
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -145,17 +156,21 @@ const Collections: React.FC = () => {
               {bottomRow.map((item, index) => (
                 <div
                   key={index + topRow.length}
-                  className="
+                  className={`
                     bg-white rounded-full border-4 border-[#492822] overflow-hidden
                     w-30 h-30
                     md:w-32 md:h-32
                     lg:w-40 lg:h-40
                     transition-all duration-300
-                  "
+                    float-bounce
+                  `}
+                  style={{
+                    animationDelay: `${(index + topRow.length) * 0.5}s`,
+                  }}
                 >
                   <img
                     src={item}
-                    alt={"Item " + (index + topRow.length + 1)}
+                    alt={`Item ${index + topRow.length + 1}`}
                     className="w-full h-full object-contain"
                   />
                 </div>
