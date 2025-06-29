@@ -117,7 +117,7 @@ const Collections: React.FC = () => {
 
       <div className="relative overflow-hidden">
         <div className="bg-[#482923] p-4 md:p-6 lg:p-8 clip-zigzag w-full h-[20rem] md:h-[26rem] lg:h-[34rem]">
-          <div className="flex flex-col gap-15 md:gap-16 lg:gap-20 items-center w-full max-w-6xl mx-auto">
+          <div className="flex flex-col gap-10 md:gap-16 lg:gap-20 items-center w-full max-w-6xl mx-auto">
             {/* Upper Row */}
             <div className="flex justify-center flex-wrap gap-20 md:gap-35 lg:gap-45">
               {topRow.map((item, index) => (
@@ -125,7 +125,7 @@ const Collections: React.FC = () => {
                   key={index}
                   className="
                     bg-white rounded-full border-4 border-[#492822] overflow-hidden
-                    w-25 h-25
+                    w-30 h-30
                     md:w-32 md:h-32
                     lg:w-40 lg:h-40
                     transition-all duration-300
@@ -147,7 +147,7 @@ const Collections: React.FC = () => {
                   key={index + topRow.length}
                   className="
                     bg-white rounded-full border-4 border-[#492822] overflow-hidden
-                    w-25 h-25
+                    w-30 h-30
                     md:w-32 md:h-32
                     lg:w-40 lg:h-40
                     transition-all duration-300
