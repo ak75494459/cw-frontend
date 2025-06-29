@@ -105,9 +105,9 @@ const AppRoutes = () => {
         <Route
           path="/user-profile"
           element={
-            <Layout>
+            <WithoutFooterLayout>
               <UserProfilePage />
-            </Layout>
+            </WithoutFooterLayout>
           }
         />
 
