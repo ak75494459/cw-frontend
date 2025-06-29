@@ -47,7 +47,7 @@ const SearchBar = ({ onSubmit, placeHolder, searchQuery }: Props) => {
     <Form {...form}>
       <div className="flex justify-end">
         <div
-          className={`flex items-center gap-3 justify-between flex-row border-2 m-2 w-[50%] p-2 transition-all duration-300 focus-within:w-[70%] max-md:focus-within:w-full  max-md:w-full max-md:rounded-full  ${
+          className={`flex items-center gap-3 justify-between flex-row border-2 m-2 w-[50%] p-2 transition-all duration-300 focus-within:w-[70%] max-md:p-1 max-md:focus-within:w-full  max-md:w-full max-md:rounded-full  ${
             form.formState.errors.searchQuery && "border-red-500"
           }`}
         >
@@ -58,7 +58,7 @@ const SearchBar = ({ onSubmit, placeHolder, searchQuery }: Props) => {
             <Search
               strokeWidth={2.5}
               size={30}
-              className="ml-1 text-[#99775C] hidden md:block "
+              className="ml-1 text-[#492822]   hidden md:block "
             />
 
             <FormField
@@ -79,7 +79,7 @@ const SearchBar = ({ onSubmit, placeHolder, searchQuery }: Props) => {
 
             <Button
               type="submit"
-              className="rounded-full hover:bg-[#492822] bg-[#99775C]"
+              className="rounded-full bg-[#492822] hover:bg-[#99775C]  "
             >
               Search
             </Button>
