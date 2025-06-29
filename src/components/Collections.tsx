@@ -7,8 +7,6 @@ const Collections: React.FC = () => {
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
-    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
-    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
   ];
 
   // Responsive detection
@@ -118,7 +116,7 @@ const Collections: React.FC = () => {
       </style>
 
       <div className="relative overflow-hidden">
-        <div className="bg-[#CC7351] p-4 md:p-6 lg:p-8 clip-zigzag w-full h-[20rem] md:h-[26rem] lg:h-[34rem]">
+        <div className="bg-[#482923] p-4 md:p-6 lg:p-8 clip-zigzag w-full h-[20rem] md:h-[26rem] lg:h-[34rem]">
           <div className="flex flex-col gap-15 md:gap-16 lg:gap-20 items-center w-full max-w-6xl mx-auto">
             {/* Upper Row */}
             <div className="flex justify-center flex-wrap gap-20 md:gap-35 lg:gap-45">
