@@ -21,6 +21,7 @@ import Faq from "./components/Faq";
 import Support from "./components/Support";
 import ProductsCollectionPage from "./pages/ProductsCollectionPage";
 import VideoWithProducts from "./components/VideoWithProducts";
+import Collections from "./components/Collections";
 
 const AppRoutes = () => {
   const { currentUser } = useGetMyUser();
@@ -33,6 +34,7 @@ const AppRoutes = () => {
           <HomeLayout>
             <VideoMenuSlab />
             <MyCarousel />
+            <Collections />
             <ProductsPage />
             <VideoWithProducts />
           </HomeLayout>
