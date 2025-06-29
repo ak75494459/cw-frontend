@@ -79,7 +79,7 @@ const Collections: React.FC = () => {
                   <img
                     src={item}
                     alt={"Item " + (index + 1)}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ))}
@@ -100,7 +100,7 @@ const Collections: React.FC = () => {
                   <img
                     src={item}
                     alt={"Item " + (index + 5)}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ))}

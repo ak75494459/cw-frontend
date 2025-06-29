@@ -15,13 +15,9 @@ const ProductsPage = () => {
   }, []);
 
   return (
-    <div data-aos="fade-up" className=" mx-auto px-4 py-10">
+    <div data-aos="fade-up" className=" mx-auto px-4 ">
       {/* Stylish Heading */}
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-extrabold text-gray-800">Our Products</h1>
-        <p className="mt-2 text-gray-600 text-lg">
-          Discover our most demanding and top-selling products.
-        </p>
         <div className="mt-4 h-1 w-16 mx-auto bg-black rounded-full" />
       </div>
 
