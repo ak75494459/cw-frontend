@@ -2,19 +2,34 @@ import React from "react";
 
 const Collections: React.FC = () => {
   const collectionItems: string[] = [
-    "https://images.meesho.com/images/products/304116583/2g0gv_512.webp",
-    "https://i.pinimg.com/736x/37/64/ed/3764edcd3455f35f33d53580ce597a3e.jpg",
-    "https://i.pinimg.com/736x/37/64/ed/3764edcd3455f35f33d53580ce597a3e.jpg",
-    "https://i.pinimg.com/736x/37/64/ed/3764edcd3455f35f33d53580ce597a3e.jpg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbntf-CnsLyS9Hwlm9KmTRE6kpB59t1eDsAg&s",
+    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
+    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
+    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
   ];
 
-  const topRow = collectionItems.slice(0, 6);
-  const bottomRow = collectionItems.slice(6);
+  // Responsive detection
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkScreen = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkScreen();
+    window.addEventListener("resize", checkScreen);
+    return () => window.removeEventListener("resize", checkScreen);
+  }, []);
+
+  // Adjust images based on screen size
+  const topRow = isMobile
+    ? collectionItems.slice(0, 2)
+    : collectionItems.slice(0, 3);
+  const bottomRow = isMobile
+    ? collectionItems.slice(2, 3)
+    : collectionItems.slice(3, 5);
 
   return (
     <div className="flex flex-col w-full bg-white py-8">
@@ -59,58 +74,91 @@ const Collections: React.FC = () => {
                 60% 85%, 70% 100%, 80% 85%, 90% 100%, 100% 85%, 100% 0%, 0% 0%
               );
             }
-
           }
 
-          @media (max-width: 1227px) {
-            .hide-below-1228 {
-              display: none;
+          @media (max-width: 768px) {
+            .clip-zigzag {
+              animation: zigzagWaveMobile 3s infinite linear;
+            }
+
+            @keyframes zigzagWaveMobile {
+              0% {
+                clip-path: polygon(
+                  0% 95%, 10% 100%, 20% 95%, 30% 100%, 40% 95%, 50% 100%, 
+                  60% 95%, 70% 100%, 80% 95%, 90% 100%, 100% 95%, 100% 0%, 0% 0%
+                );
+              }
+              25% {
+                clip-path: polygon(
+                  0% 95%, 0% 100%, 10% 95%, 20% 100%, 30% 95%, 40% 100%, 
+                  50% 95%, 60% 100%, 70% 95%, 80% 100%, 90% 95%, 100% 100%, 100% 0%, 0% 0%
+                );
+              }
+              50% {
+                clip-path: polygon(
+                  0% 95%, 0% 100%, 0% 95%, 10% 100%, 20% 95%, 30% 100%, 
+                  40% 95%, 50% 100%, 60% 95%, 70% 100%, 80% 95%, 90% 100%, 100% 95%, 100% 0%, 0% 0%
+                );
+              }
+              75% {
+                clip-path: polygon(
+                  0% 95%, 0% 100%, 0% 95%, 0% 100%, 10% 95%, 20% 100%, 
+                  30% 95%, 40% 100%, 50% 95%, 60% 100%, 70% 95%, 80% 100%, 90% 95%, 100% 100%, 100% 0%, 0% 0%
+                );
+              }
+              100% {
+                clip-path: polygon(
+                  0% 95%, 10% 100%, 20% 95%, 30% 100%, 40% 95%, 50% 100%, 
+                  60% 95%, 70% 100%, 80% 95%, 90% 100%, 100% 95%, 100% 0%, 0% 0%
+                );
+              }
             }
           }
         `}
       </style>
 
       <div className="relative overflow-hidden">
-        <div className="bg-[#492822] p-4 md:p-6 lg:p-8 clip-zigzag w-full h-[18rem] md:h-[26rem] lg:h-[34rem]">
-          <div className="flex flex-col gap-10 md:gap-16 lg:gap-20 items-center w-full max-w-6xl mx-auto">
-            <div className="flex justify-center flex-wrap gap-4 md:gap-8 lg:gap-12">
+        <div className="bg-[#CC7351] p-4 md:p-6 lg:p-8 clip-zigzag w-full h-[20rem] md:h-[26rem] lg:h-[34rem]">
+          <div className="flex flex-col gap-15 md:gap-16 lg:gap-20 items-center w-full max-w-6xl mx-auto">
+            {/* Upper Row */}
+            <div className="flex justify-center flex-wrap gap-20 md:gap-35 lg:gap-45">
               {topRow.map((item, index) => (
                 <div
                   key={index}
-                  className={`
-                    bg-white rounded-full overflow-hidden
-                    w-16 h-16
-                    md:w-28 md:h-28
-                    lg:w-38 lg:h-38
-                    transition-all duration-300
-                    ${index >= 4 ? "hide-below-1228" : ""}
-                  `}
-                >
-                  <img
-                    src={item}
-                    alt={"Item " + (index + 1)}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="flex justify-center flex-wrap gap-4 md:gap-8 lg:gap-12">
-              {bottomRow.map((item, index) => (
-                <div
-                  key={index + 6}
                   className="
-                    bg-white rounded-full overflow-hidden
-                    w-16 h-16
-                    md:w-28 md:h-28
-                    lg:w-38 lg:h-38
+                    bg-white rounded-full border-4 border-[#492822] overflow-hidden
+                    w-25 h-25
+                    md:w-32 md:h-32
+                    lg:w-40 lg:h-40
                     transition-all duration-300
                   "
                 >
                   <img
                     src={item}
-                    alt={"Item " + (index + 7)}
-                    className="w-full h-full object-cover"
+                    alt={"Item " + (index + 1)}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Lower Row */}
+            <div className="flex justify-center flex-wrap gap-20 md:gap-35 lg:gap-45">
+              {bottomRow.map((item, index) => (
+                <div
+                  key={index + topRow.length}
+                  className="
+                    bg-white rounded-full border-4 border-[#492822] overflow-hidden
+                    w-25 h-25
+                    md:w-32 md:h-32
+                    lg:w-40 lg:h-40
+                    transition-all duration-300
+                  "
+                >
+                  <img
+                    src={item}
+                    alt={"Item " + (index + topRow.length + 1)}
+                    className="w-full h-full object-contain"
                   />
                 </div>
               ))}
