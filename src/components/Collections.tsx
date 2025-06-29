@@ -69,8 +69,8 @@ const Collections: React.FC = () => {
                 <div
                   key={index}
                   className="
-                    bg-white rounded-full border-4 border-[#492822] overflow-hidden
-                    w-20 h-20
+                    bg-white rounded-full overflow-hidden
+                     w-16 h-16
                     md:w-28 md:h-28
                     lg:w-40 lg:h-40
                     transition-all duration-300
@@ -90,8 +90,8 @@ const Collections: React.FC = () => {
                 <div
                   key={index + 4}
                   className="
-                    bg-white rounded-full border-4 border-[#492822] overflow-hidden
-                    w-20 h-20
+                    bg-white rounded-full  overflow-hidden
+                    w-16 h-16
                     md:w-28 md:h-28
                     lg:w-40 lg:h-40
                     transition-all duration-300
