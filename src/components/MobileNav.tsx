@@ -108,7 +108,7 @@ const MobileNav = () => {
             <Separator className="my-4" />
             <div className="flex flex-col gap-4 mb-6">
               <Link
-                to="/cart"
+                to="/user-profile"
                 className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
               >
                 <User className="w-4 h-4" />
