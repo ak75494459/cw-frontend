@@ -103,7 +103,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
                       </span>
                     </p>
                     <p>
-                      <span className="max-md:text-[0.7rem]">Quantity:{" "}</span>
+                      <span className="max-md:text-[0.7rem]">Quantity: </span>
                       <span className="font-medium max-md:text-[0.7rem]">
                         {quantity}
                       </span>
@@ -115,10 +115,10 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
                           <span className="line-through text-gray-400 mr-2">
                             ₹{price.toFixed(2)}
                           </span>
-                          <span className="text-green-700 font-semibold">
+                          <span className="text-green-700 font-semibold max-md:text-[0.7rem]">
                             ₹{discountedPrice.toFixed(2)}
                           </span>
-                          <span className="text-sm text-red-500 ml-2">
+                          <span className="text-sm text-red-500 ml-2 max-md:text-[0.7rem]">
                             ({discount}% OFF)
                           </span>
                         </>
@@ -130,7 +130,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
                 </div>
 
                 <div className="flex flex-col items-end gap-2">
-                  <div className="text-lg font-semibold text-blue-600 whitespace-nowrap">
+                  <div className="text-lg font-semibold text-blue-600 whitespace-nowrap max-md:text-[0.9rem]">
                     ₹{(discountedPrice * quantity).toFixed(2)}
                   </div>
                   <button
