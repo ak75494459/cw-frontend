@@ -171,7 +171,7 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
             <div className="text-sm text-green-700 font-medium">
               You Saved: ₹{totalDiscount.toFixed(2)}
             </div>
-            <div className="text-2xl font-bold mt-1">
+            <div className="text-lg font-bold mt-1">
               Total: ₹{totalAfterDiscount.toFixed(2)}
             </div>
           </div>
