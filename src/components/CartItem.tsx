@@ -90,12 +90,14 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
                   />
                   <div className="flex flex-col gap-1 text-sm text-gray-700">
                     <h3
-                      className="text-lg font-semibold text-gray-900 cursor-pointer hover:underline"
+                      className="text-lg font-semibold text-gray-900 cursor-pointer hover:underline max-md:text-[0.9rem]"
                       onClick={() => handleProductNavigation(item.product._id)}
                     >
                       {item.product.productName}
                     </h3>
-                    <p className="text-gray-500">{item.product.brand}</p>
+                    <p className="text-gray-500 max-md:text-[0.6rem]">
+                      {item.product.brand}
+                    </p>
                     <p>
                       <span className="max-md:text-[0.7rem]">Size: </span>
                       <span className="font-medium max-md:text-[0.7rem]">
