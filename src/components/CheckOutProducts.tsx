@@ -114,7 +114,7 @@ const CheckOutProducts = () => {
                 </div>
               </div>
 
-              <div className="text-lg font-semibold text-blue-600 whitespace-nowrap">
+              <div className="text-md font-semibold text-blue-600 whitespace-nowrap">
                 ₹{(discountedPrice * item.quantity).toFixed(2)}
               </div>
             </div>
