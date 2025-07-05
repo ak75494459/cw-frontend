@@ -70,11 +70,11 @@ export function MyCarousel() {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-200  opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-200  opacity-0 group-hover:opacity-100 opacity-full transition-opacity duration-300">
             <ChevronLeft className="w-5 h-5 text-black" />
           </CarouselPrevious>
 
-          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-200  opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-200  opacity-0 group-hover:opacity-100 opacity-full transition-opacity duration-300">
             <ChevronRight className="w-5 h-5 text-black" />
           </CarouselNext>
         </Carousel>
@@ -85,7 +85,11 @@ export function MyCarousel() {
           .carousel-item {
             flex: 0 0 50%;
           }
+          .opacity-full{
+            opacity:1;
+          }
         }
+       
 
         @media (max-width: 600px) {
           .carousel-item {
