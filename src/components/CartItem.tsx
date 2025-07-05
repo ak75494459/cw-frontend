@@ -97,14 +97,19 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
                     </h3>
                     <p className="text-gray-500">{item.product.brand}</p>
                     <p>
-                      Size:{" "}
-                      <span className="font-medium">{item.size || "N/A"}</span>
+                      <span className="max-md:text-[0.7rem]">Size: </span>
+                      <span className="font-medium max-md:text-[0.7rem]">
+                        {item.size || "N/A"}
+                      </span>
                     </p>
                     <p>
-                      Quantity: <span className="font-medium">{quantity}</span>
+                      <span className="max-md:text-[0.7rem]">Quantity:{" "}</span>
+                      <span className="font-medium max-md:text-[0.7rem]">
+                        {quantity}
+                      </span>
                     </p>
-                    <p className="text-base font-medium">
-                      Price:{" "}
+                    <p className="text-base font-medium max-md:text-[0.7rem]">
+                      <span className="max-md:text-[0.7rem]">Price: </span>
                       {discount > 0 ? (
                         <>
                           <span className="line-through text-gray-400 mr-2">
