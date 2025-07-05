@@ -60,7 +60,7 @@ const CheckOutProducts = () => {
   const totalSavings = productLevelSavings + couponDiscountAmount;
 
   return (
-    <div className="pb-50">
+    <div className="pb-65">
       <h2 className="text-3xl font-bold mb-4 text-gray-800 px-3">🛍️ Items</h2>
 
       <div className="space-y-6 px-3">
