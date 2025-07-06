@@ -19,7 +19,7 @@ export function MyCarousel() {
   );
 
   return (
-    <div className=" bg-[#DDD0C8] py-3">
+    <div className="bg-[#DDD0C8] py-3">
       {/* Enhanced Heading */}
       <div className="text-center mt-10 mb-4">
         <h1 className="text-4xl font-bold text-[#333] tracking-wide relative inline-block">
@@ -46,19 +46,15 @@ export function MyCarousel() {
             {Array.from({ length: 10 }).map((_, index) => (
               <CarouselItem
                 key={index}
-                className="carousel-item basis-1/4 h-full " // <-- add group here
+                className="carousel-item basis-1/4 h-full"
               >
-                <div className="p-4 w-full h-[400px] overflow-hidden  relative">
-                  {/* Image Container */}
+                <div className="p-4 w-full h-[400px] overflow-hidden relative">
                   <div className="w-full h-full relative overflow-hidden">
-                    {/* Default Image */}
                     <img
                       src="https://www.nishorama.com/cdn/shop/files/IMG_6106.jpg?v=1747908590&width=750"
                       alt={`Slide ${index + 1}`}
                       className="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-700 ease-in-out opacity-100 hover:opacity-0"
                     />
-
-                    {/* Hover Image with Zoom-in Effect */}
                     <img
                       src="https://www.nishorama.com/cdn/shop/files/IMG_6134.jpg?v=1747992370&width=750"
                       alt={`Slide ${index + 1} Hover`}
@@ -70,30 +66,47 @@ export function MyCarousel() {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-200  opacity-0 group-hover:opacity-100 opacity-full transition-opacity duration-300">
+          {/* ARROW BUTTONS with special class */}
+          <CarouselPrevious className="carousel-arrow opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute left-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full flex items-center justify-center">
             <ChevronLeft className="w-5 h-5 text-black" />
           </CarouselPrevious>
 
-          <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full bg-white shadow-md flex items-center justify-center hover:bg-gray-200  opacity-0 group-hover:opacity-100 opacity-full transition-opacity duration-300">
+          <CarouselNext className="carousel-arrow opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute right-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full flex items-center justify-center">
             <ChevronRight className="w-5 h-5 text-black" />
           </CarouselNext>
         </Carousel>
       </div>
 
       <style>{`
+        /* Default carousel item layout */
+        .carousel-item {
+          flex: 0 0 25%;
+        }
+
         @media (max-width: 1000px) {
           .carousel-item {
             flex: 0 0 50%;
           }
-          .opacity-full{
-            opacity:1;
-          }
         }
-       
 
         @media (max-width: 600px) {
           .carousel-item {
             flex: 0 0 100%;
+          }
+        }
+
+        /* ARROW BUTTON STYLING */
+
+        .carousel-arrow {
+          background-color: white;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1000px) {
+          .carousel-arrow {
+            background-color: transparent;
+            box-shadow: none;
+            opacity: 1 !important;
           }
         }
       `}</style>
