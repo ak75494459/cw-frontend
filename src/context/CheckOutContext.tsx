@@ -1,13 +1,11 @@
 import { createContext, useContext, useState } from "react";
 import type { Dispatch, SetStateAction, ReactNode } from "react";
-import type { GetCartType } from "@/types"; // Adjust this path
+import type { GetCartType } from "@/types";
 
-// Props for Provider
 interface CheckoutProviderProps {
   children: ReactNode;
 }
 
-// Context type
 interface CheckoutContextType {
   amount: number;
   setAmount: Dispatch<SetStateAction<number>>;
@@ -15,18 +13,23 @@ interface CheckoutContextType {
   setItems: Dispatch<SetStateAction<GetCartType | undefined>>;
   paymentMethod: string;
   setPaymentMethod: Dispatch<SetStateAction<string>>;
+
+  selectedAddressId: string | null;
+  setSelectedAddressId: Dispatch<SetStateAction<string | null>>;
 }
 
-// Create Context
 const CheckoutContext = createContext<CheckoutContextType | undefined>(
   undefined
 );
 
-// Provider Component
 export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   const [amount, setAmount] = useState<number>(0);
   const [items, setItems] = useState<GetCartType | undefined>(undefined);
   const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
+    null
+  );
+  console.log(selectedAddressId);
 
   return (
     <CheckoutContext.Provider
@@ -37,6 +40,8 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
         setItems,
         paymentMethod,
         setPaymentMethod,
+        selectedAddressId,
+        setSelectedAddressId,
       }}
     >
       {children}
@@ -44,7 +49,6 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   );
 };
 
-// Hook to use the context
 export const useCheckout = (): CheckoutContextType => {
   const context = useContext(CheckoutContext);
   if (!context) {

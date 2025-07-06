@@ -11,10 +11,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useCheckout } from "@/context/CheckOutContext";
+import type { Address } from "@/types";
 
+// ✅ Validation schema
 const addressSchema = z.object({
   fullName: z.string().min(1, "Full name is required"),
-  phoneNumber: z.string().min(10).max(10),
+  phoneNumber: z.string().min(10, "Phone number must be 10 digits").max(10),
   addressLine1: z.string().min(1, "Address Line 1 is required"),
   addressLine2: z.string().optional(),
   city: z.string().min(1, "City is required"),
@@ -26,11 +29,14 @@ const addressSchema = z.object({
 type AddressFormData = z.infer<typeof addressSchema>;
 
 type Props = {
-  onSave: (data: FormData) => void; // <-- updated to FormData
+  onSave: (data: FormData) => Promise<Address>;
   isLoading?: boolean;
+  refetchAddresses: () => Promise<any>; // 🟢 Added
 };
 
-const AddressForm = ({ onSave, isLoading }: Props) => {
+const AddressForm = ({ onSave, isLoading, refetchAddresses }: Props) => {
+  const { setSelectedAddressId } = useCheckout();
+
   const form = useForm<AddressFormData>({
     resolver: zodResolver(addressSchema),
     defaultValues: {
@@ -45,18 +51,39 @@ const AddressForm = ({ onSave, isLoading }: Props) => {
     },
   });
 
-  const onSubmit = (data: AddressFormData) => {
-    const formData = new FormData();
-    formData.append("fullName", data.fullName);
-    formData.append("phoneNumber", data.phoneNumber);
-    formData.append("addressLine1", data.addressLine1);
-    if (data.addressLine2) formData.append("addressLine2", data.addressLine2);
-    formData.append("city", data.city);
-    formData.append("state", data.state);
-    formData.append("country", data.country);
-    formData.append("pincode", data.pincode);
+  const onSubmit = async (data: AddressFormData) => {
+    try {
+      // Build FormData
+      const formData = new FormData();
+      formData.append("fullName", data.fullName);
+      formData.append("phoneNumber", data.phoneNumber);
+      formData.append("addressLine1", data.addressLine1);
+      if (data.addressLine2) formData.append("addressLine2", data.addressLine2);
+      formData.append("city", data.city);
+      formData.append("state", data.state);
+      formData.append("country", data.country);
+      formData.append("pincode", data.pincode);
 
-    onSave(formData); // ✅ send FormData to parent
+      // Save
+      await onSave(formData);
+
+      // Refetch
+      const refreshed = await refetchAddresses();
+      const addresses: Address[] = refreshed?.data?.addresses;
+
+      if (addresses && addresses.length > 0) {
+        const lastAddress = addresses[addresses.length - 1];
+        if (lastAddress && lastAddress._id) {
+          setSelectedAddressId(lastAddress._id);
+        } else {
+          console.error("Last address missing _id:", lastAddress);
+        }
+      } else {
+        console.error("No addresses returned after refetch:", addresses);
+      }
+    } catch (error) {
+      console.error("Error saving or selecting address:", error);
+    }
   };
 
   return (
@@ -78,6 +105,7 @@ const AddressForm = ({ onSave, isLoading }: Props) => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="phoneNumber"
@@ -91,6 +119,7 @@ const AddressForm = ({ onSave, isLoading }: Props) => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="addressLine1"
@@ -104,6 +133,7 @@ const AddressForm = ({ onSave, isLoading }: Props) => {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="addressLine2"
@@ -116,6 +146,7 @@ const AddressForm = ({ onSave, isLoading }: Props) => {
             </FormItem>
           )}
         />
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           <FormField
             control={form.control}
@@ -157,6 +188,7 @@ const AddressForm = ({ onSave, isLoading }: Props) => {
             )}
           />
         </div>
+
         <FormField
           control={form.control}
           name="pincode"
@@ -170,6 +202,7 @@ const AddressForm = ({ onSave, isLoading }: Props) => {
             </FormItem>
           )}
         />
+
         <Button
           type="submit"
           className="bg-[#492822] text-white hover:bg-[#CC7351]"

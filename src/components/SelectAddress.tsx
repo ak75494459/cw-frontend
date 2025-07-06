@@ -1,22 +1,18 @@
-import { useState } from "react";
 import type { UserAddresses } from "@/types";
 
 type Props = {
   addressesData?: UserAddresses;
+  selectedAddressId: string | null; // ✅ controlled selected ID
+  setSelectedAddressId: (id: string) => void; // ✅ state setter
 };
 
-const SelectAddress = ({ addressesData }: Props) => {
-  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
-    () => {
-      if (addressesData?.addresses?.length) {
-        return addressesData.addresses[0]._id; // First address default
-      }
-      return null;
-    }
-  );
-
+const SelectAddress = ({
+  addressesData,
+  selectedAddressId,
+  setSelectedAddressId,
+}: Props) => {
   if (!addressesData || !addressesData.addresses?.length) {
-    return <p>No addresses found.</p>;
+    return <p className="text-gray-500">No addresses found.</p>;
   }
 
   return (
@@ -39,14 +35,17 @@ const SelectAddress = ({ addressesData }: Props) => {
                 name="selectedAddress"
                 value={address._id}
                 checked={isSelected}
-                onChange={() => setSelectedAddressId(address._id)}
-                className="mt-1 h-5 w-5  text-blue-600 focus:ring-blue-500"
+                onChange={() => setSelectedAddressId(address._id)} // ✅ call parent setter
+                className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500"
               />
               <div className="text-sm">
                 <p className="font-semibold text-gray-900">
                   {address.fullName}
                 </p>
                 <p className="text-gray-700">{address.addressLine1}</p>
+                {address.addressLine2 && (
+                  <p className="text-gray-700">{address.addressLine2}</p>
+                )}
                 <p className="text-gray-700">
                   {address.city}, {address.state} - {address.pincode}
                 </p>

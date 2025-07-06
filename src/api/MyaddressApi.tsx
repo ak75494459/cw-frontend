@@ -1,4 +1,4 @@
-import type { UserAddresses } from "@/types";
+import type { UserAddresses, Address } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
@@ -23,7 +23,7 @@ export const useGetMyAddresses = () => {
       throw new Error(`Failed to fetch addresses: ${errorMessage}`);
     }
 
-    return response.json(); // Expecting an array of address objects
+    return response.json() as Promise<UserAddresses>;
   };
 
   const {
@@ -50,14 +50,13 @@ export const useGetMyAddresses = () => {
 export const useCreateMyAddress = () => {
   const { getAccessTokenSilently } = useAuth0();
 
-  const createMyAddress = async (formData: FormData) => {
+  const createMyAddress = async (formData: FormData): Promise<Address> => {
     const accessToken = await getAccessTokenSilently();
 
     const response = await fetch(`${VITE_API_BASE_URL}/api/my/address`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        // No need to set Content-Type; browser sets it automatically for FormData
       },
       body: formData,
     });
@@ -67,26 +66,23 @@ export const useCreateMyAddress = () => {
       throw new Error(`Failed to create address: ${errorMessage}`);
     }
 
-    return response.json();
+    const json = await response.json();
+    return json.address as Address;
   };
-
-  const {
-    mutateAsync: createAddress,
-
-    isPending,
-  } = useMutation({
+  const { mutateAsync: createAddress, isPending } = useMutation({
     mutationFn: createMyAddress,
     onSuccess: () => {
-      toast.success("Address is saved check existing address");
+      // ✅ 4. Get new address object
+      toast.success("Address saved successfully!");
+      // ✅ 5. Auto-select newly created address
     },
     onError: () => {
-      toast.error("something wrong happend");
+      toast.error("Something went wrong!");
     },
   });
 
   return {
     createAddress,
-
     isPending,
   };
 };
