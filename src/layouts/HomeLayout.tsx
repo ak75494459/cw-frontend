@@ -23,7 +23,7 @@ const HomeLayout = ({ children }: Props) => {
   return (
     <div className="flex flex-col min-h-screen">
       <header
-        className={`w-full py-6 fixed text-white  h-[15rem] max-md:h-[5rem] max-md:bg-transparent top-0 left-0 z-50  transition-all duration-500  ${
+        className={`w-full py-6 fixed text-white  h-[15rem] max-md:h-[7rem] max-md:bg-transparent top-0 left-0 z-50  transition-all duration-500  ${
           scrolled
             ? "bg-[#99775C]/50 shadow-md backdrop-blur-md"
             : "bg-transparent"
