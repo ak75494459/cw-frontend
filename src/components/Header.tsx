@@ -16,9 +16,9 @@ const Header = () => {
           className="
             w-24
             sm:w-24
-            md:w-24
-           lg:w-24
-            xl:w-24
+            md:w-34
+           lg:w-34
+            xl:w-34
             max-w-full
             h-auto
             transition-all
