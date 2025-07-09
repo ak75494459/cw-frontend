@@ -24,8 +24,6 @@ const CartItem: React.FC<CartItemProps> = ({
   const navigate = useNavigate();
   const { setItems } = useCheckout();
   const [isOverlayOpen, setOverlayOpen] = useState(false);
-
-  // 👇 Local loading states for tracking specific items
   const [updatingItemId, setUpdatingItemId] = useState<string | null>(null);
   const [deletingItemId, setDeletingItemId] = useState<string | null>(null);
 
@@ -45,11 +43,8 @@ const CartItem: React.FC<CartItemProps> = ({
     const discountPercentage = item.product.discount || 0;
     const quantity = item.quantity;
 
-    const itemTotal = price * quantity;
-    const itemDiscount = (price * discountPercentage * quantity) / 100;
-
-    subtotal += itemTotal;
-    totalDiscount += itemDiscount;
+    subtotal += price * quantity;
+    totalDiscount += (price * discountPercentage * quantity) / 100;
   });
 
   const totalAfterDiscount = subtotal - totalDiscount;
@@ -69,7 +64,17 @@ const CartItem: React.FC<CartItemProps> = ({
     newQuantity: number
   ) => {
     if (newQuantity < 1) return;
-    setUpdatingItemId(productId);
+
+    const cartItemId = cartData.items.find(
+      (item) => item.product._id === productId && item.size === size
+    )?._id;
+
+    if (!cartItemId) {
+      console.error("Item not found in local cartData!");
+      return;
+    }
+
+    setUpdatingItemId(cartItemId);
     try {
       await updateCartItemQuantity({ productId, size, quantity: newQuantity });
     } finally {
@@ -78,7 +83,16 @@ const CartItem: React.FC<CartItemProps> = ({
   };
 
   const handleDeleteItem = async (productId: string, size: string) => {
-    setDeletingItemId(productId);
+    const cartItemId = cartData.items.find(
+      (item) => item.product._id === productId && item.size === size
+    )?._id;
+
+    if (!cartItemId) {
+      console.error("Item not found in local cartData!");
+      return;
+    }
+
+    setDeletingItemId(cartItemId);
     try {
       await deleteCartItem({ productId, size });
     } finally {
@@ -95,16 +109,9 @@ const CartItem: React.FC<CartItemProps> = ({
 
         <div
           className="space-y-6 max-h-[65vh] overflow-y-scroll pr-2"
-          style={{
-            scrollbarWidth: "none",
-            msOverflowStyle: "none",
-          }}
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          <style>{`
-            div::-webkit-scrollbar {
-              display: none;
-            }
-          `}</style>
+          <style>{`div::-webkit-scrollbar { display: none; }`}</style>
 
           {cartData.items.map((item) => {
             const price = item.product.price || 0;
@@ -146,13 +153,12 @@ const CartItem: React.FC<CartItemProps> = ({
                       </span>
                     </p>
 
-                    {/* Quantity Selector */}
                     <p className="flex items-center gap-2 max-md:flex-col max-md:items-start max-md:gap-1">
                       <span className="text-sm max-md:text-xs">Quantity:</span>
                       <div className="flex items-center border rounded overflow-hidden text-sm max-md:text-xs">
                         <button
                           disabled={isThisUpdating}
-                          className={`px-3 py-1 max-md:px-2 max-md:py-1 text-gray-700 hover:bg-gray-200 transition ${
+                          className={`px-3 py-1 max-md:px-2 text-gray-700 hover:bg-gray-200 transition ${
                             isThisUpdating
                               ? "opacity-50 cursor-not-allowed"
                               : ""
@@ -167,37 +173,17 @@ const CartItem: React.FC<CartItemProps> = ({
                         >
                           -
                         </button>
-                        <span className="px-4 py-1 max-md:px-2 relative flex items-center justify-center">
-                          {item.quantity}
+
+                        <span className="px-4 py-1 max-md:px-2 relative flex items-center justify-center min-w-[2rem] gap-2">
+                          <span>{item.quantity}</span>
                           {isThisUpdating && (
-                            <svg
-                              className="animate-spin ml-1 h-4 w-4 text-gray-500"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            >
-                              <line x1="12" y1="2" x2="12" y2="6" />
-                              <line x1="12" y1="18" x2="12" y2="22" />
-                              <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
-                              <line
-                                x1="16.24"
-                                y1="16.24"
-                                x2="19.07"
-                                y2="19.07"
-                              />
-                              <line x1="2" y1="12" x2="6" y2="12" />
-                              <line x1="18" y1="12" x2="22" y2="12" />
-                              <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
-                              <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
-                            </svg>
+                            <div className="h-4 w-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
                           )}
                         </span>
+
                         <button
                           disabled={isThisUpdating}
-                          className={`px-3 py-1 max-md:px-2 max-md:py-1 text-gray-700 hover:bg-gray-200 transition ${
+                          className={`px-3 py-1 max-md:px-2 text-gray-700 hover:bg-gray-200 transition ${
                             isThisUpdating
                               ? "opacity-50 cursor-not-allowed"
                               : ""
