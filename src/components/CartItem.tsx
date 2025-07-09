@@ -6,13 +6,28 @@ import CheckoutOverlay from "./CheckOutOverlay";
 
 interface CartItemProps {
   cartData?: GetCartType;
-  deleteCartItem: any;
+  deleteCartItem: (args: { productId: string; size: string }) => Promise<void>;
+  updateCartItemQuantity: (args: {
+    productId: string;
+    size: string;
+    quantity: number;
+  }) => Promise<void>;
+  isDeleting: boolean;
+  isUpdating: boolean;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
+const CartItem: React.FC<CartItemProps> = ({
+  cartData,
+  deleteCartItem,
+  updateCartItemQuantity,
+}) => {
   const navigate = useNavigate();
   const { setItems } = useCheckout();
   const [isOverlayOpen, setOverlayOpen] = useState(false);
+
+  // 👇 Local loading states for tracking specific items
+  const [updatingItemId, setUpdatingItemId] = useState<string | null>(null);
+  const [deletingItemId, setDeletingItemId] = useState<string | null>(null);
 
   if (!cartData || cartData.items.length === 0) {
     return (
@@ -22,7 +37,6 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
     );
   }
 
-  // Calculate subtotal, discount, total and saved amount
   let subtotal = 0;
   let totalDiscount = 0;
 
@@ -49,6 +63,29 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
     setOverlayOpen(true);
   };
 
+  const handleQuantityChange = async (
+    productId: string,
+    size: string,
+    newQuantity: number
+  ) => {
+    if (newQuantity < 1) return;
+    setUpdatingItemId(productId);
+    try {
+      await updateCartItemQuantity({ productId, size, quantity: newQuantity });
+    } finally {
+      setUpdatingItemId(null);
+    }
+  };
+
+  const handleDeleteItem = async (productId: string, size: string) => {
+    setDeletingItemId(productId);
+    try {
+      await deleteCartItem({ productId, size });
+    } finally {
+      setDeletingItemId(null);
+    }
+  };
+
   return (
     <div className="mt-15 pb-25">
       <div className="p-3">
@@ -56,12 +93,11 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
           🛍️ Shopping Cart
         </h2>
 
-        {/* Scrollable section with scrollbar hidden */}
         <div
           className="space-y-6 max-h-[65vh] overflow-y-scroll pr-2"
           style={{
-            scrollbarWidth: "none", // Firefox
-            msOverflowStyle: "none", // IE 10+
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
           }}
         >
           <style>{`
@@ -76,10 +112,15 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
             const quantity = item.quantity;
             const discountedPrice = price - (price * discount) / 100;
 
+            const isThisUpdating = updatingItemId === item._id;
+            const isThisDeleting = deletingItemId === item._id;
+
             return (
               <div
                 key={item._id}
-                className="flex items-center justify-between border-b pb-6 hover:bg-gray-50 p-4 transition m-3"
+                className={`flex items-center justify-between border-b pb-6 hover:bg-gray-50 p-4 transition m-3 ${
+                  isThisUpdating || isThisDeleting ? "opacity-60" : ""
+                }`}
               >
                 <div className="flex items-start gap-4">
                   <img
@@ -104,12 +145,76 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
                         {item.size || "N/A"}
                       </span>
                     </p>
-                    <p>
-                      <span className="max-md:text-[0.7rem]">Quantity: </span>
-                      <span className="font-medium max-md:text-[0.7rem]">
-                        {quantity}
-                      </span>
+
+                    {/* Quantity Selector */}
+                    <p className="flex items-center gap-2 max-md:flex-col max-md:items-start max-md:gap-1">
+                      <span className="text-sm max-md:text-xs">Quantity:</span>
+                      <div className="flex items-center border rounded overflow-hidden text-sm max-md:text-xs">
+                        <button
+                          disabled={isThisUpdating}
+                          className={`px-3 py-1 max-md:px-2 max-md:py-1 text-gray-700 hover:bg-gray-200 transition ${
+                            isThisUpdating
+                              ? "opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            handleQuantityChange(
+                              item.product._id,
+                              item.size!,
+                              item.quantity - 1
+                            )
+                          }
+                        >
+                          -
+                        </button>
+                        <span className="px-4 py-1 max-md:px-2 relative flex items-center justify-center">
+                          {item.quantity}
+                          {isThisUpdating && (
+                            <svg
+                              className="animate-spin ml-1 h-4 w-4 text-gray-500"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            >
+                              <line x1="12" y1="2" x2="12" y2="6" />
+                              <line x1="12" y1="18" x2="12" y2="22" />
+                              <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                              <line
+                                x1="16.24"
+                                y1="16.24"
+                                x2="19.07"
+                                y2="19.07"
+                              />
+                              <line x1="2" y1="12" x2="6" y2="12" />
+                              <line x1="18" y1="12" x2="22" y2="12" />
+                              <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                              <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+                            </svg>
+                          )}
+                        </span>
+                        <button
+                          disabled={isThisUpdating}
+                          className={`px-3 py-1 max-md:px-2 max-md:py-1 text-gray-700 hover:bg-gray-200 transition ${
+                            isThisUpdating
+                              ? "opacity-50 cursor-not-allowed"
+                              : ""
+                          }`}
+                          onClick={() =>
+                            handleQuantityChange(
+                              item.product._id,
+                              item.size!,
+                              item.quantity + 1
+                            )
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
                     </p>
+
                     <p className="text-base font-medium max-md:text-[0.7rem]">
                       <span className="max-md:text-[0.7rem]">Price: </span>
                       {discount > 0 ? (
@@ -136,13 +241,13 @@ const CartItem: React.FC<CartItemProps> = ({ cartData, deleteCartItem }) => {
                     ₹{(discountedPrice * quantity).toFixed(2)}
                   </div>
                   <button
+                    disabled={isThisDeleting}
                     onClick={() =>
-                      deleteCartItem({
-                        productId: item.product._id,
-                        size: item.size,
-                      })
+                      handleDeleteItem(item.product._id, item.size!)
                     }
-                    className="text-red-600 hover:text-red-800 text-sm"
+                    className={`text-red-600 hover:text-red-800 text-sm ${
+                      isThisDeleting ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

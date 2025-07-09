@@ -67,12 +67,12 @@ export function MyCarousel() {
           </CarouselContent>
 
           {/* ARROW BUTTONS with special class */}
-          <CarouselPrevious className="carousel-arrow opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute left-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full flex items-center justify-center">
-            <ChevronLeft className="w-5 h-5 text-black" />
+          <CarouselPrevious className="carousel-arrow opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute left-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10  rounded-full flex items-center justify-center  border-0">
+            <ChevronLeft className="w-5 h-5 text-black font-bold" />
           </CarouselPrevious>
 
-          <CarouselNext className="carousel-arrow opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute right-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full flex items-center justify-center">
-            <ChevronRight className="w-5 h-5 text-black" />
+          <CarouselNext className="carousel-arrow opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute right-2 top-1/2 -translate-y-1/2 z-50 w-10 h-10 rounded-full flex items-center justify-center  border-0">
+            <ChevronRight className="w-5 h-5 text-black font-bold" />
           </CarouselNext>
         </Carousel>
       </div>

@@ -144,3 +144,60 @@ export const useDeleteItem = () => {
     error,
   };
 };
+
+interface ChangeQuantityParams {
+  productId: string;
+  size: string;
+  quantity: number;
+}
+
+export const useChangeCartItemQuantity = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const queryClient = useQueryClient();
+
+  const changeQuantity = async ({
+    productId,
+    size,
+    quantity,
+  }: ChangeQuantityParams): Promise<void> => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(
+      `${VITE_API_BASE_URL}/api/cart/change-quantity`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId, size, quantity }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(`Failed to change quantity: ${errorMessage}`);
+    }
+  };
+
+  const {
+    mutateAsync: updateCartItemQuantity,
+    isPending,
+    error,
+  } = useMutation<void, Error, ChangeQuantityParams>({
+    mutationFn: changeQuantity,
+    onSuccess: () => {
+      toast.success("Quantity updated");
+      queryClient.invalidateQueries({ queryKey: ["fetchCartItem"] });
+    },
+    onError: () => {
+      toast.error("Failed to update quantity");
+    },
+  });
+
+  return {
+    updateCartItemQuantity, // use like updateCartItemQuantity({ productId, size, quantity })
+    isPending,
+    error,
+  };
+};

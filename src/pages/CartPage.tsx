@@ -1,9 +1,15 @@
-import { useDeleteItem, useGetMyCartData } from "@/api/MyCartApi";
+import {
+  useDeleteItem,
+  useGetMyCartData,
+  useChangeCartItemQuantity,
+} from "@/api/MyCartApi";
 import CartItem from "@/components/CartItem";
 
 const CartPage = () => {
   const { cartData, isLoading } = useGetMyCartData();
-  const { deleteCartItem } = useDeleteItem();
+  const { deleteCartItem, isPending: isDeleting } = useDeleteItem();
+  const { updateCartItemQuantity, isPending: isUpdating } =
+    useChangeCartItemQuantity();
 
   if (isLoading) {
     return (
@@ -21,7 +27,15 @@ const CartPage = () => {
     );
   }
 
-  return <CartItem cartData={cartData} deleteCartItem={deleteCartItem} />;
+  return (
+    <CartItem
+      cartData={cartData}
+      deleteCartItem={deleteCartItem}
+      updateCartItemQuantity={updateCartItemQuantity}
+      isDeleting={isDeleting}
+      isUpdating={isUpdating}
+    />
+  );
 };
 
 export default CartPage;
