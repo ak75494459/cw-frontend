@@ -4,6 +4,8 @@ import { useCreateRazorpayOrder } from "@/api/RazorpayApi";
 import { useValidateRazorpayPayment } from "@/api/RazorpayApi";
 import { toast } from "sonner";
 import { useCreateOrder } from "@/api/MyOrderApi";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useClearCart } from "@/api/MyCartApi";
 
 // ✅ Razorpay type
 declare global {
@@ -27,6 +29,10 @@ const CheckOutProducts = () => {
   const { createOrder, isPending } = useCreateRazorpayOrder();
   const { validatePayment } = useValidateRazorpayPayment();
   const { createProductsOrder } = useCreateOrder();
+  const { clearCart } = useClearCart();
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   if (!items || items.items.length === 0) {
     return (
@@ -76,7 +82,6 @@ const CheckOutProducts = () => {
   };
 
   // ✅ ----------- Handle Razorpay Payment -----------
-  // ✅ ----------- Handle Razorpay Payment -----------
   const handlePayNow = async () => {
     try {
       // ✅ 1. Create Razorpay Order on backend
@@ -114,10 +119,9 @@ const CheckOutProducts = () => {
               razorpay_signature,
             });
 
-            toast.success("Payment successful & verified!");
+            toast.success("✅ Payment successful & verified!");
 
             // ✅ 4. Create order on backend (user from token)
-            // 👉 FIXED: only send _id for product
             const orderPayload = {
               items: items.items.map((item) => ({
                 product: item.product._id,
@@ -136,13 +140,16 @@ const CheckOutProducts = () => {
 
             await createProductsOrder(orderPayload);
 
-            toast.success("Your order has been placed!");
+            toast.success("✅ Your order has been placed!");
 
-            // ✅ 5. Optional - Clear Cart
-            // await clearCartOnServer();
+            // ✅ 5. Conditionally clear cart if from /cart
+            if (location.pathname.includes("/cart")) {
+              await clearCart();
+              toast.success("🛒 Cart cleared after order!");
+            }
 
-            // ✅ 6. Optional - Navigate
-            // router.push("/order/success");
+            // ✅ 6. Navigate to success page
+            navigate("/order");
           } catch (err: any) {
             console.error("❌ Validation or Order Error:", err);
             toast.error(
@@ -200,10 +207,8 @@ const CheckOutProducts = () => {
                   className="w-24 h-full object-cover rounded-md"
                 />
                 <div className="flex flex-col gap-1 text-sm text-gray-700">
-                  <h3 className="text-lg font-semibold text-gray-900 hover:underline">
-                    <h3 className="text-base font-semibold text-gray-900 hover:underline">
-                      {truncateWords(item.product.productName, 2)}
-                    </h3>
+                  <h3 className="text-base font-semibold text-gray-900 hover:underline">
+                    {truncateWords(item.product.productName, 2)}
                   </h3>
                   <p className="text-gray-500">{item.product.brand}</p>
                   <p>

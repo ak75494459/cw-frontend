@@ -106,7 +106,7 @@ export type OrderType = {
   _id?: string;
   user: string;
   items: any[];
-  address: any;
+  shippingAddress: any;
   totalAmount?: number;
   status?: string;
   paymentDetails?: {
@@ -130,3 +130,48 @@ export type CreateOrderPayload = {
     razorpay_signature: string;
   };
 };
+
+// types.ts or wherever you define types
+export interface ProductDetails {
+  _id: string;
+  productName: string;
+  price: number;
+  discount?: number;
+  productImages: string[];
+  brand?: string;
+}
+
+export interface OrderItemWithProduct {
+  product: ProductDetails;
+  quantity: number;
+  size: string;
+}
+
+export interface ShippingAddress {
+  fullName: string;
+  phoneNumber: string;
+  addressLine1: string;
+  addressLine2?: string;
+  city: string;
+  state: string;
+  pincode: string;
+  country: string;
+}
+
+export interface PaymentDetails {
+  razorpay_payment_id: string;
+  razorpay_order_id: string;
+  razorpay_signature: string;
+}
+
+export interface UserOrderWithProductDetails {
+  _id: string;
+  user: string;
+  items: OrderItemWithProduct[];
+  shippingAddress: ShippingAddress;
+  totalAmount: number;
+  status: string;
+  paymentDetails?: PaymentDetails;
+  createdAt: string;
+  updatedAt: string;
+}

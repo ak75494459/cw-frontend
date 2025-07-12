@@ -25,6 +25,8 @@ import Collections from "./components/Collections";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsOfService from "./components/TermsOfService";
 import ReturnPolicy from "./components/ReturnPolicy";
+import OrderPage from "./pages/OrderPage";
+import ShippingPolicy from "./components/ShippingPolicy";
 
 const AppRoutes = () => {
   const { currentUser } = useGetMyUser();
@@ -59,6 +61,7 @@ const AppRoutes = () => {
           </ProductsLayout>
         }
       />
+
       <Route
         path={`/products/:id`}
         element={
@@ -89,6 +92,22 @@ const AppRoutes = () => {
         element={
           <ProductsLayout>
             <PrivacyPolicy />
+          </ProductsLayout>
+        }
+      />
+      <Route
+        path="/terms-of-service"
+        element={
+          <ProductsLayout>
+            <TermsOfService />
+          </ProductsLayout>
+        }
+      />
+      <Route
+        path="/shipping-policy"
+        element={
+          <ProductsLayout>
+            <ShippingPolicy />
           </ProductsLayout>
         }
       />
@@ -144,6 +163,14 @@ const AppRoutes = () => {
             <CartLayout>
               <CartPage />
             </CartLayout>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <ProductsLayout>
+              <OrderPage />
+            </ProductsLayout>
           }
         />
 

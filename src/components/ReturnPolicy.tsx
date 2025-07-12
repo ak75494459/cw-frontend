@@ -82,7 +82,7 @@ const ReturnPolicy: React.FC = () => {
           <br />
           Email: support@isharae.com
           <br />
-          Phone: +91-XXXXXXXXXX
+          Phone: +91-7973990408
           {/* TODO: Replace with your real support email and phone */}
         </p>
       </section>

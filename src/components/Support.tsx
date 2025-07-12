@@ -23,7 +23,7 @@ const Support = () => {
           <Mail className="h-6 w-6 text-[#CC7351]" />
           <div>
             <h3 className="font-semibold">Email Support</h3>
-            <p className="text-sm text-gray-500">support@yourdomain.com</p>
+            <p className="text-sm text-gray-500">support@isharae.com</p>
           </div>
         </div>
 
@@ -32,7 +32,7 @@ const Support = () => {
           <Phone className="h-6 w-6 text-[#CC7351]" />
           <div>
             <h3 className="font-semibold">Call Us</h3>
-            <p className="text-sm text-gray-500">+91 9876543210</p>
+            <p className="text-sm text-gray-500">+91 7973990408</p>
           </div>
         </div>
 
@@ -55,7 +55,7 @@ const Support = () => {
           <Smartphone className="h-6 w-6 text-[#25D366]" />
           <div>
             <h3 className="font-semibold">WhatsApp Support</h3>
-            <p className="text-sm text-gray-500">+91 7549445937 (Chat Now)</p>
+            <p className="text-sm text-gray-500">+91 7973990408 (Chat Now)</p>
           </div>
         </div>
 

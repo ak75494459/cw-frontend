@@ -1,7 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { toast } from "sonner";
-import type { OrderType, CreateOrderPayload } from "@/types";
+import type {
+  OrderType,
+  CreateOrderPayload,
+  UserOrderWithProductDetails,
+} from "@/types";
 
 const VITE_API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -50,4 +54,31 @@ export const useCreateOrder = () => {
     isPending,
     error,
   };
+};
+
+export const useGetMyOrders = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const fetchMyOrders = async (): Promise<UserOrderWithProductDetails[]> => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(`${VITE_API_BASE_URL}/api/my/order/details`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to fetch orders: ${errorText}`);
+    }
+
+    const data = await response.json();
+    return data.orders;
+  };
+
+  return useQuery<UserOrderWithProductDetails[], Error>({
+    queryKey: ["myOrders"],
+    queryFn: fetchMyOrders,
+  });
 };

@@ -201,3 +201,45 @@ export const useChangeCartItemQuantity = () => {
     error,
   };
 };
+
+export const useClearCart = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const queryClient = useQueryClient();
+
+  const clearCartOnServer = async (): Promise<void> => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(`${VITE_API_BASE_URL}/api/cart/clear`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to clear cart: ${errorText}`);
+    }
+  };
+
+  const {
+    mutateAsync: clearCart,
+    isPending,
+    error,
+  } = useMutation<void, Error>({
+    mutationFn: clearCartOnServer,
+    onSuccess: () => {
+      toast.success("Cart cleared");
+      queryClient.invalidateQueries({ queryKey: ["fetchCartItem"] });
+    },
+    onError: () => {
+      toast.error("Failed to clear cart");
+    },
+  });
+
+  return {
+    clearCart,
+    isPending,
+    error,
+  };
+};

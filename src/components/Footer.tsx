@@ -21,7 +21,7 @@ const Footer = () => {
                 support@isharae.com
               </a>
               <br />
-              <strong>Mob:</strong> +91 XXXXXXXXXX
+              <strong>Mob:</strong> +91 7973990408
             </p>
             <p className="mb-4">
               <strong>Opening Hours:</strong> Mon to Sat: 10 AM - 8:30 PM
@@ -94,6 +94,11 @@ const Footer = () => {
               <li>
                 <Link to="/terms-of-service" className="hover:underline">
                   Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link to="/shipping-policy" className="hover:underline">
+                  Shipping Policy
                 </Link>
               </li>
             </ul>

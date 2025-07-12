@@ -44,6 +44,14 @@ const UsernameMenu = () => {
             User Profile
           </Link>
         </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link
+            to="/order"
+            className="font-bold text-[#99775C] hover:text-[#CC7351]"
+          >
+            View Order
+          </Link>
+        </DropdownMenuItem>
         {currentUser?._id === targetId ? (
           <DropdownMenuItem>
             <Link
