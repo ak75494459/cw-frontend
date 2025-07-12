@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import type { Dispatch, SetStateAction, ReactNode } from "react";
-import type { GetCartType } from "@/types";
+import type { GetCartType, Address } from "@/types";
 
 interface CheckoutProviderProps {
   children: ReactNode;
@@ -14,8 +14,8 @@ interface CheckoutContextType {
   paymentMethod: string;
   setPaymentMethod: Dispatch<SetStateAction<string>>;
 
-  selectedAddressId: string | null;
-  setSelectedAddressId: Dispatch<SetStateAction<string | null>>;
+  selectedAddress: Address | null;
+  setSelectedAddress: Dispatch<SetStateAction<Address | null>>;
 }
 
 const CheckoutContext = createContext<CheckoutContextType | undefined>(
@@ -26,10 +26,8 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   const [amount, setAmount] = useState<number>(0);
   const [items, setItems] = useState<GetCartType | undefined>(undefined);
   const [paymentMethod, setPaymentMethod] = useState<string>("");
-  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(
-    null
-  );
-  console.log(selectedAddressId);
+  const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
+  console.log("amount", amount, "items", items, "address", selectedAddress);
 
   return (
     <CheckoutContext.Provider
@@ -40,8 +38,8 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
         setItems,
         paymentMethod,
         setPaymentMethod,
-        selectedAddressId,
-        setSelectedAddressId,
+        selectedAddress,
+        setSelectedAddress,
       }}
     >
       {children}

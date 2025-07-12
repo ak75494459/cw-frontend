@@ -35,7 +35,7 @@ type Props = {
 };
 
 const AddressForm = ({ onSave, isLoading, refetchAddresses }: Props) => {
-  const { setSelectedAddressId } = useCheckout();
+  const { setSelectedAddress } = useCheckout();
 
   const form = useForm<AddressFormData>({
     resolver: zodResolver(addressSchema),
@@ -74,7 +74,7 @@ const AddressForm = ({ onSave, isLoading, refetchAddresses }: Props) => {
       if (addresses && addresses.length > 0) {
         const lastAddress = addresses[addresses.length - 1];
         if (lastAddress && lastAddress._id) {
-          setSelectedAddressId(lastAddress._id);
+          setSelectedAddress(lastAddress);
         } else {
           console.error("Last address missing _id:", lastAddress);
         }

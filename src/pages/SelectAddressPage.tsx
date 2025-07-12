@@ -4,7 +4,7 @@ import SelectAddress from "@/components/SelectAddress";
 
 const SelectAddressPage = () => {
   const { addressesData, isLoading } = useGetMyAddresses();
-  const { selectedAddressId, setSelectedAddressId } = useCheckout(); // ✅ get state
+  const { selectedAddress, setSelectedAddress } = useCheckout(); // ✅ get state
 
   if (isLoading) return <div className="container m-auto">Loading...</div>;
 
@@ -13,8 +13,8 @@ const SelectAddressPage = () => {
       <h1 className="text-xl font-semibold">Select Delivery Address</h1>
       <SelectAddress
         addressesData={addressesData!}
-        selectedAddressId={selectedAddressId}
-        setSelectedAddressId={setSelectedAddressId}
+        selectedAddress={selectedAddress}
+        setSelectedAddress={setSelectedAddress}
       />
     </div>
   );

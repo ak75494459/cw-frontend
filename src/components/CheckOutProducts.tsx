@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useCreateRazorpayOrder } from "@/api/RazorpayApi";
 import { useValidateRazorpayPayment } from "@/api/RazorpayApi";
 import { toast } from "sonner";
+import { useCreateOrder } from "@/api/MyOrderApi";
 
 // ✅ Razorpay type
 declare global {
@@ -18,13 +19,14 @@ const validCoupons = [
 ];
 
 const CheckOutProducts = () => {
-  const { items } = useCheckout();
+  const { items, selectedAddress } = useCheckout();
   const [couponCode, setCouponCode] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(0);
   const [couponError, setCouponError] = useState("");
 
   const { createOrder, isPending } = useCreateRazorpayOrder();
   const { validatePayment } = useValidateRazorpayPayment();
+  const { createProductsOrder } = useCreateOrder();
 
   if (!items || items.items.length === 0) {
     return (
@@ -74,9 +76,10 @@ const CheckOutProducts = () => {
   };
 
   // ✅ ----------- Handle Razorpay Payment -----------
+  // ✅ ----------- Handle Razorpay Payment -----------
   const handlePayNow = async () => {
     try {
-      // ✅ 1. Create Razorpay order on backend
+      // ✅ 1. Create Razorpay Order on backend
       const order = await createOrder({
         amount: Math.round(totalAfterCoupon * 100),
         currency: "INR",
@@ -89,7 +92,7 @@ const CheckOutProducts = () => {
 
       if (!order.id) throw new Error("Invalid Razorpay order ID");
 
-      // ✅ 2. Prepare Razorpay options with payment handler
+      // ✅ 2. Setup Razorpay Checkout
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: order.amount,
@@ -100,23 +103,52 @@ const CheckOutProducts = () => {
         handler: async function (response: any) {
           console.log("✅ Razorpay Success:", response);
 
-          // 🔹 Payment details from Razorpay
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
             response;
 
           try {
-            // ✅ 3. Validate with your backend
-            const validationResult = await validatePayment({
+            // ✅ 3. Validate payment on backend
+            await validatePayment({
               razorpay_payment_id,
               razorpay_order_id,
               razorpay_signature,
             });
 
-            console.log("✅ Validation Response:", validationResult);
             toast.success("Payment successful & verified!");
+
+            // ✅ 4. Create order on backend (user from token)
+            // 👉 FIXED: only send _id for product
+            const orderPayload = {
+              items: items.items.map((item) => ({
+                product: item.product._id,
+                quantity: item.quantity,
+                size: item.size,
+              })),
+              shippingAddress: selectedAddress,
+              totalAmount: totalAfterCoupon,
+              status: "Paid",
+              paymentDetails: {
+                razorpay_payment_id,
+                razorpay_order_id,
+                razorpay_signature,
+              },
+            };
+
+            await createProductsOrder(orderPayload);
+
+            toast.success("Your order has been placed!");
+
+            // ✅ 5. Optional - Clear Cart
+            // await clearCartOnServer();
+
+            // ✅ 6. Optional - Navigate
+            // router.push("/order/success");
           } catch (err: any) {
-            console.error("❌ Validation Error:", err);
-            toast.error(err?.message || "Payment verification failed!");
+            console.error("❌ Validation or Order Error:", err);
+            toast.error(
+              err?.message ||
+                "Payment verification failed or order creation failed!"
+            );
           }
         },
         prefill: {
@@ -130,6 +162,7 @@ const CheckOutProducts = () => {
         },
       };
 
+      // ✅ 7. Open Razorpay Checkout
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err: any) {

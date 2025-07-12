@@ -1,15 +1,15 @@
-import type { UserAddresses } from "@/types";
+import type { Address, UserAddresses } from "@/types";
 
 type Props = {
   addressesData?: UserAddresses;
-  selectedAddressId: string | null; // ✅ controlled selected ID
-  setSelectedAddressId: (id: string) => void; // ✅ state setter
+  selectedAddress: Address | null; // ✅ controlled selected ID
+  setSelectedAddress: (address: Address) => void; // ✅ state setter
 };
 
 const SelectAddress = ({
   addressesData,
-  selectedAddressId,
-  setSelectedAddressId,
+  selectedAddress,
+  setSelectedAddress,
 }: Props) => {
   if (!addressesData || !addressesData.addresses?.length) {
     return <p className="text-gray-500">No addresses found.</p>;
@@ -18,7 +18,7 @@ const SelectAddress = ({
   return (
     <div className="space-y-4">
       {addressesData.addresses.map((address) => {
-        const isSelected = selectedAddressId === address._id;
+        const isSelected = selectedAddress?._id === address._id;
 
         return (
           <label
@@ -35,7 +35,7 @@ const SelectAddress = ({
                 name="selectedAddress"
                 value={address._id}
                 checked={isSelected}
-                onChange={() => setSelectedAddressId(address._id)} // ✅ call parent setter
+                onChange={() => setSelectedAddress(address)} // ✅ call parent setter
                 className="mt-1 h-5 w-5 text-blue-600 focus:ring-blue-500"
               />
               <div className="text-sm">

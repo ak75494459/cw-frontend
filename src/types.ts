@@ -100,3 +100,33 @@ export interface UserAddresses {
   user: string; // User ID
   addresses: Address[]; // Array of address objects
 }
+
+// The type you get BACK from the API (full Order)
+export type OrderType = {
+  _id?: string;
+  user: string;
+  items: any[];
+  address: any;
+  totalAmount?: number;
+  status?: string;
+  paymentDetails?: {
+    razorpay_payment_id: string;
+    razorpay_order_id: string;
+    razorpay_signature: string;
+  };
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+// The type you SEND to the API when creating a new order
+export type CreateOrderPayload = {
+  items: any[];
+  shippingAddress: any;
+  totalAmount: number;
+  status: string;
+  paymentDetails?: {
+    razorpay_payment_id: string;
+    razorpay_order_id: string;
+    razorpay_signature: string;
+  };
+};
