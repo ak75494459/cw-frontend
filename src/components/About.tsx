@@ -103,7 +103,7 @@ const About = () => {
             Get in Touch
           </h3>
           <p className="text-gray-700">Email: support@isharae.com</p>
-          <p className="text-gray-700">Phone: +91-xxxxxxxxx</p>
+          <p className="text-gray-700">Phone: +91-7549445937</p>
         </div>
 
         <Separator className="my-10" />

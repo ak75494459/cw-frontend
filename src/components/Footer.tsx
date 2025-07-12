@@ -21,7 +21,7 @@ const Footer = () => {
                 support@isharae.com
               </a>
               <br />
-              <strong>Mob:</strong> +91 xxxxx xxxxx
+              <strong>Mob:</strong> +91 7549445937
             </p>
             <p className="mb-4">
               <strong>Opening Hours:</strong> Mon to Sat: 10 AM - 8:30 PM
