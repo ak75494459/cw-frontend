@@ -100,6 +100,13 @@ const CartItem: React.FC<CartItemProps> = ({
     }
   };
 
+  const truncateWords = (text: string, wordLimit: number) => {
+    if (!text) return "";
+    const words = text.split(" ");
+    if (words.length <= wordLimit) return text;
+    return words.slice(0, wordLimit).join(" ") + "...";
+  };
+
   return (
     <div className="mt-15 pb-25">
       <div className="p-3">
@@ -141,7 +148,7 @@ const CartItem: React.FC<CartItemProps> = ({
                       className="text-lg font-semibold text-gray-900 cursor-pointer hover:underline max-md:text-[0.9rem]"
                       onClick={() => handleProductNavigation(item.product._id)}
                     >
-                      {item.product.productName}
+                      {truncateWords(item.product.productName, 2)}
                     </h3>
                     <p className="text-gray-500 max-md:text-[0.6rem]">
                       {item.product.brand}
@@ -211,9 +218,7 @@ const CartItem: React.FC<CartItemProps> = ({
                           <span className="text-green-700 font-semibold max-md:text-[0.7rem]">
                             ₹{discountedPrice.toFixed(2)}
                           </span>
-                          <span className="text-sm text-red-500 ml-2 max-md:text-[0.7rem]">
-                            ({discount}% OFF)
-                          </span>
+                         
                         </>
                       ) : (
                         <>₹{price.toFixed(2)}</>

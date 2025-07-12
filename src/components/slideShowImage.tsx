@@ -15,18 +15,18 @@ const SlideshowImage: React.FC<SlideshowImageProps> = ({ slides }) => {
   return (
     <>
       {/* Slideshow Layout */}
-      <div className="w-full m-auto max-w-2xl diplayColom flex gap-2 p-4">
+      <div className="w-full max-w-5xl mx-auto flex flex-col lg:flex-row gap-4 p-4">
         {/* Left Side Thumbnails (Desktop) */}
-        <div className="flex flex-wrap sideImageHidden flex-col gap-2 mt-4">
+        <div className="hidden lg:flex flex-col gap-3 max-h-[30rem] overflow-y-auto">
           {slides.map((src, index) => (
             <img
               key={index}
               src={src}
               alt={`Thumb ${index + 1}`}
               onClick={() => selectSlide(index)}
-              className={`w-30 h-30 object-cover cursor-pointer border-2 ${
+              className={`w-24 h-32 object-cover cursor-pointer rounded border-2 transition ${
                 current === index
-                  ? "border-white opacity-100"
+                  ? "border-blue-500 opacity-100"
                   : "border-transparent opacity-60 hover:opacity-100"
               }`}
             />
@@ -35,7 +35,7 @@ const SlideshowImage: React.FC<SlideshowImageProps> = ({ slides }) => {
 
         {/* Main Slide */}
         <div
-          className="relative w-[70%] h-[70%] lg:w-full md:w-full mx-auto aspect-[4/6] overflow-hidden shadow-md cursor-pointer"
+          className="relative flex-1 aspect-[4/6] max-h-[80vh] overflow-hidden rounded shadow-md cursor-pointer"
           onClick={() => setIsModalOpen(true)}
         >
           <img
@@ -48,17 +48,17 @@ const SlideshowImage: React.FC<SlideshowImageProps> = ({ slides }) => {
           </div>
         </div>
 
-        {/* Bottom Thumbnails (Mobile) */}
-        <div className="flex-wrap hidden lowerSlideImageShow gap-2 mt-4">
+        {/* Bottom Thumbnails (Mobile / Tablet) */}
+        <div className="flex flex-wrap lg:hidden justify-center gap-2 mt-4">
           {slides.map((src, index) => (
             <img
               key={index}
               src={src}
               alt={`Thumb ${index + 1}`}
               onClick={() => selectSlide(index)}
-              className={`w-20 h-30 object-cover cursor-pointer border-2 ${
+              className={`w-20 h-28 sm:w-24 sm:h-32 object-cover cursor-pointer rounded border-2 transition ${
                 current === index
-                  ? "border-white opacity-100"
+                  ? "border-blue-500 opacity-100"
                   : "border-transparent opacity-60 hover:opacity-100"
               }`}
             />
@@ -86,21 +86,6 @@ const SlideshowImage: React.FC<SlideshowImageProps> = ({ slides }) => {
           </button>
         </div>
       )}
-
-      {/* Responsive Styles */}
-      <style>{`
-        @media (max-width: 1040px) {
-          .diplayColom {
-            flex-direction: column;
-          }
-          .sideImageHidden {
-            display: none;
-          }
-          .lowerSlideImageShow {
-            display: flex;
-          }
-        }
-      `}</style>
     </>
   );
 };

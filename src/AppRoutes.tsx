@@ -22,6 +22,9 @@ import Support from "./components/Support";
 import ProductsCollectionPage from "./pages/ProductsCollectionPage";
 import VideoWithProducts from "./components/VideoWithProducts";
 import Collections from "./components/Collections";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsOfService from "./components/TermsOfService";
+import ReturnPolicy from "./components/ReturnPolicy";
 
 const AppRoutes = () => {
   const { currentUser } = useGetMyUser();
@@ -51,9 +54,9 @@ const AppRoutes = () => {
       <Route
         path="/about"
         element={
-          <WithoutFooterLayout>
+          <ProductsLayout>
             <About />
-          </WithoutFooterLayout>
+          </ProductsLayout>
         }
       />
       <Route
@@ -79,6 +82,30 @@ const AppRoutes = () => {
           <WithoutFooterLayout>
             <Faq />
           </WithoutFooterLayout>
+        }
+      />
+      <Route
+        path="/privacy-policy"
+        element={
+          <ProductsLayout>
+            <PrivacyPolicy />
+          </ProductsLayout>
+        }
+      />
+      <Route
+        path="/terms-of-service"
+        element={
+          <ProductsLayout>
+            <TermsOfService />
+          </ProductsLayout>
+        }
+      />
+      <Route
+        path="/return-policy"
+        element={
+          <ProductsLayout>
+            <ReturnPolicy />
+          </ProductsLayout>
         }
       />
 

@@ -1,7 +1,9 @@
+import { Separator } from "@/components/ui/separator";
+
 const About = () => {
   return (
-    <section className=" text-black  px-4 ">
-      <div className="max-w-5xl mx-auto">
+    <section className="text-black px-2">
+      <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl font-bold mb-6 text-gray-900">About Us</h2>
 
         <p className="text-lg leading-relaxed text-gray-700">
@@ -17,7 +19,21 @@ const About = () => {
           fashion with an Indian soul and a global edge.
         </p>
 
-        <div className="mt-10">
+        <Separator className="my-10" />
+
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+            Our Mission
+          </h3>
+          <p className="text-gray-700">
+            To empower self-expression through comfortable, high-quality fashion
+            that celebrates cultural roots while embracing modern trends.
+          </p>
+        </div>
+
+        <Separator className="my-10" />
+
+        <div>
           <h3 className="text-2xl font-semibold text-gray-900 mb-2">
             Our Philosophy
           </h3>
@@ -28,25 +44,73 @@ const About = () => {
           </p>
         </div>
 
-        <div className="mt-10">
+        <Separator className="my-10" />
+
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+            Craftsmanship & Quality
+          </h3>
+          <p className="text-gray-700">
+            Every product is made with precision, care, and passion. We work
+            with skilled artisans and trusted manufacturers to ensure quality
+            that meets our high standards.
+          </p>
+        </div>
+
+        <Separator className="my-10" />
+
+        <div>
           <h3 className="text-2xl font-semibold text-gray-900 mb-2">
             Sustainability
           </h3>
           <p className="text-gray-700">
             We're committed to responsible sourcing and ethical production
             practices. Our goal is to build a brand that cares as much about the
-            planet as it does about design.
+            planet as it does about design. We use eco-friendly packaging and
+            support fair labor practices.
           </p>
         </div>
 
-        <div className="mt-10">
+        <Separator className="my-10" />
+
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+            Customer Promise
+          </h3>
+          <p className="text-gray-700">
+            We stand for transparency, responsive support, and satisfaction
+            guaranteed. If you're not happy with your purchase, we'll make it
+            right.
+          </p>
+        </div>
+
+        <Separator className="my-10" />
+
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+            Headquarters
+          </h3>
+          <p className="text-gray-700">
+            Street No. 1, New Vijay Nagar, Churpur Road, Haibowal Kalan,
+            Ludhiana, Punjab - 141001, India
+          </p>
+        </div>
+
+        <Separator className="my-10" />
+
+        <div>
           <h3 className="text-2xl font-semibold text-gray-900 mb-2">
             Get in Touch
           </h3>
-          <p className="text-gray-700">Email: support@ourbrand.com</p>
-          <p className="text-gray-700">Phone: +91-9876543210</p>
-          <p className="text-gray-700">Instagram: @ourbrand</p>
+          <p className="text-gray-700">Email: support@isharae.com</p>
+          <p className="text-gray-700">Phone: +91-xxxxxxxxx</p>
         </div>
+
+        <Separator className="my-10" />
+
+        <p className="text-sm text-gray-500 mt-10">
+          © {new Date().getFullYear()} - isharae.com | All rights reserved.
+        </p>
       </div>
     </section>
   );
