@@ -200,7 +200,7 @@ const TermsOfService: React.FC = () => {
           </strong>
           <br />
           Email: support@isharae.com <br />
-          Phone: +91-7549445937
+          Phone: +91-XXXXXXXXXX
           {/* TODO: Replace email and phone with your actual contact details */}
         </p>
       </section>
