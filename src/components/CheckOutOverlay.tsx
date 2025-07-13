@@ -1,6 +1,7 @@
+import React, { useEffect, useState } from "react";
+import { useCheckout } from "@/context/CheckOutContext";
 import AddressFormPage from "@/pages/AddressFormPage";
 import SelectAddressPage from "@/pages/SelectAddressPage";
-import React, { useState } from "react";
 import CheckOutProducts from "./CheckOutProducts";
 
 interface OverlayProps {
@@ -8,18 +9,22 @@ interface OverlayProps {
   onClose: () => void;
 }
 
-//  #DDD0C8
-//  #323232
-//  #99775C
-//  #CC7351
-//  #EFE4D2
-//  #492822
-
 const steps = ["Address", "Review & Pay"];
 
 const CheckoutOverlay: React.FC<OverlayProps> = ({ isOpen, onClose }) => {
   const [step, setStep] = useState(1);
   const [useExistingAddress, setUseExistingAddress] = useState(true);
+
+  const { setSelectedAddress } = useCheckout();
+
+  // ✅ Clear selected address on open
+  useEffect(() => {
+    if (isOpen) {
+      setStep(1);
+      setUseExistingAddress(true);
+      setSelectedAddress(null);
+    }
+  }, [isOpen, setSelectedAddress]);
 
   const handleNext = () => setStep((prev) => prev + 1);
   const handleBack = () => setStep((prev) => prev - 1);
@@ -43,7 +48,6 @@ const CheckoutOverlay: React.FC<OverlayProps> = ({ isOpen, onClose }) => {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="lucide lucide-x-icon lucide-x"
                 >
                   <path d="M18 6 6 18" />
                   <path d="m6 6 12 12" />
@@ -121,7 +125,7 @@ const CheckoutOverlay: React.FC<OverlayProps> = ({ isOpen, onClose }) => {
               {step < steps.length && (
                 <button
                   onClick={handleNext}
-                  className="bg-[#492822] text-white px-4 py-2 rounded hover:bg-[#CC7351]  transition"
+                  className="bg-[#492822] text-white px-4 py-2 rounded hover:bg-[#CC7351] transition"
                 >
                   Next
                 </button>

@@ -1,10 +1,10 @@
-import { useCheckout } from "@/context/CheckOutContext"; // ✅ get from context
+import { useCheckout } from "@/context/CheckOutContext";
 import { useGetMyAddresses } from "@/api/MyaddressApi";
 import SelectAddress from "@/components/SelectAddress";
 
 const SelectAddressPage = () => {
   const { addressesData, isLoading } = useGetMyAddresses();
-  const { selectedAddress, setSelectedAddress } = useCheckout(); // ✅ get state
+  const { selectedAddress, setSelectedAddress } = useCheckout();
 
   if (isLoading) return <div className="container m-auto">Loading...</div>;
 
