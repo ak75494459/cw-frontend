@@ -121,6 +121,13 @@ const MobileNav = () => {
                 <ShoppingCart className="w-4 h-4" />
                 View Cart
               </Link>
+              <Link
+                to="/order"
+                className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
+              >
+                <ShoppingCart className="w-4 h-4" />
+                View Order
+              </Link>
 
               {currentUser?._id === targetId && (
                 <Link
