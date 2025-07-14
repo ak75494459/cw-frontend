@@ -2,11 +2,11 @@ import React from "react";
 
 const Collections: React.FC = () => {
   const collectionItems: string[] = [
+    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752500793/ChatGPT_Image_Jul_14_2025_07_15_32_PM_f24btk.png",
+    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752502753/ChatGPT_Image_Jul_14_2025_at_07_48_20_PM_ascj4u.png",
+    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752501648/ChatGPT_Image_Jul_14_2025_at_07_30_30_PM_nlem2s.png",
     "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
-    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
-    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
-    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
-    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
+    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752501830/ChatGPT_Image_Jul_14_2025_07_33_03_PM_hbfk6q.png",
   ];
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -145,7 +145,8 @@ const Collections: React.FC = () => {
                   <img
                     src={item}
                     alt={`Item ${index + 1}`}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover
+                    "
                   />
                 </div>
               ))}
@@ -171,7 +172,7 @@ const Collections: React.FC = () => {
                   <img
                     src={item}
                     alt={`Item ${index + topRow.length + 1}`}
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ))}
