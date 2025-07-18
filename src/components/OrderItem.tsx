@@ -55,7 +55,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
         </h2>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <EllipsisVertical />
+            <EllipsisVertical className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem
