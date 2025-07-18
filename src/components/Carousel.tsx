@@ -69,8 +69,9 @@ export function MyCarousel() {
           plugins={[autoplay.current]}
           opts={{
             align: "start",
-            dragFree: true,
             loop: true,
+            slidesToScroll: 1,
+            containScroll: "trimSnaps",
           }}
           className="w-full"
         >
@@ -135,7 +136,7 @@ export function MyCarousel() {
           .carousel-arrow {
             background-color: transparent;
             box-shadow: none;
-            opacity: 1 !important;
+            opacity: 0 !important;
           }
         }
       `}</style>

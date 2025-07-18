@@ -130,7 +130,8 @@ const CheckOutProducts = () => {
               })),
               shippingAddress: selectedAddress,
               totalAmount: totalAfterCoupon,
-              status: "Paid",
+              status: "Ordered",
+              paymentMethod: "Prepaid",
               paymentDetails: {
                 razorpay_payment_id,
                 razorpay_order_id,

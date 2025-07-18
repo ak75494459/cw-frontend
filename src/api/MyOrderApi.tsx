@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import type {
   OrderType,
@@ -81,4 +81,66 @@ export const useGetMyOrders = () => {
     queryKey: ["myOrders"],
     queryFn: fetchMyOrders,
   });
+};
+
+export const useUpdateMyOrder = () => {
+  const { getAccessTokenSilently } = useAuth0();
+  const queryClient = useQueryClient();
+
+  /**
+   * Function to call your PATCH endpoint
+   * Expects an object with { orderId }
+   */
+  const cancelMyOrder = async ({
+    orderId,
+    action,
+  }: {
+    orderId: string;
+    action: "cancel" | "return";
+  }) => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(`${VITE_API_BASE_URL}/api/my/order`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderId, action }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.json();
+      throw new Error(errorText.message);
+    }
+
+    return response.json();
+  };
+
+  /**
+   * React Query mutation
+   */
+  const {
+    mutateAsync: updateMyOrder,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: cancelMyOrder,
+    onSuccess: () => {
+      toast.success("✅ Order cancelled successfully!");
+
+      // ✅ This will cause useGetMyOrders to refetch automatically
+      queryClient.invalidateQueries({ queryKey: ["myOrders"] });
+    },
+    onError: (err: Error) => {
+      console.error("❌ Cancel Order Error:", err);
+      toast.error(err.message);
+    },
+  });
+
+  return {
+    updateMyOrder, // call this with { orderId }
+    isPending,
+    error,
+  };
 };

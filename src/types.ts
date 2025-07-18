@@ -109,6 +109,7 @@ export type OrderType = {
   shippingAddress: any;
   totalAmount?: number;
   status?: string;
+  paymentMethod: string;
   paymentDetails?: {
     razorpay_payment_id: string;
     razorpay_order_id: string;
@@ -124,6 +125,7 @@ export type CreateOrderPayload = {
   shippingAddress: any;
   totalAmount: number;
   status: string;
+  paymentMethod: string;
   paymentDetails?: {
     razorpay_payment_id: string;
     razorpay_order_id: string;
@@ -171,6 +173,7 @@ export interface UserOrderWithProductDetails {
   shippingAddress: ShippingAddress;
   totalAmount: number;
   status: string;
+  paymentMethod: string;
   paymentDetails?: PaymentDetails;
   createdAt: string;
   updatedAt: string;
