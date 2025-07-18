@@ -91,7 +91,7 @@ const MobileNav = () => {
             {isAuthenticated ? (
               <span>{user?.email}</span>
             ) : (
-              <span>Welcome to LovelyRent.com</span>
+              <span>Welcome to ISHARAE</span>
             )}
           </SheetTitle>
           {!isAuthenticated && (

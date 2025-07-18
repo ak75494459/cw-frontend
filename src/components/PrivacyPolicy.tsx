@@ -38,8 +38,8 @@ const PrivacyPolicy = () => {
         <br />
         <strong>Email:</strong> support@isharae.com
         <br />
-        <strong>Address:</strong> Street No. 1, New Vijay Nagar, Churpur Road,
-        Haibowal Kalan, Ludhiana, Punjab - 141001, India
+        <strong>Address:</strong> Churpur Road, Haibowal Kalan, Ludhiana, Punjab
+        - 141001, India
       </p>
 
       <Separator className="my-6" />
@@ -94,8 +94,7 @@ const PrivacyPolicy = () => {
         <strong>How Can You Withdraw Consent?</strong>
         <br />
         You can withdraw your consent at any time by emailing us at
-        support@isharaeenterprises.com or contacting us at our registered
-        address.
+        support@isharae.com or contacting us at our registered address.
       </p>
 
       <Separator className="my-6" />

@@ -91,8 +91,7 @@ const About = () => {
             Headquarters
           </h3>
           <p className="text-gray-700">
-            Street No. 1, New Vijay Nagar, Churpur Road, Haibowal Kalan,
-            Ludhiana, Punjab - 141001, India
+            Churpur Road, Haibowal Kalan, Ludhiana, Punjab - 141001, India
           </p>
         </div>
 

@@ -11,7 +11,7 @@ const Footer = () => {
             <p className="mb-2">
               <strong>Head Office Address:</strong>
               <br />
-              Street No. 1, New Vijay Nagar, Churpur Road, Haibowal Kalan,
+              Churpur Road, Haibowal Kalan,
               <br />
               Ludhiana, Punjab - 141001, India
             </p>
