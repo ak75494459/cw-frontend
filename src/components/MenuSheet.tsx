@@ -9,7 +9,6 @@ import {
 import { Separator } from "@/components/ui/separator";
 import {
   AlignLeft,
-  Package,
   Info,
   Image,
   BookOpen,
@@ -20,6 +19,7 @@ import {
   Sun,
   Sparkles,
   Flame,
+  Shirt,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const MenuSheet = () => {
     {
       name: "Products",
       to: "/products",
-      icon: <Package className="w-4 h-4" />,
+      icon: <Shirt className="w-4 h-4" />,
     },
     { name: "About", to: "/about", icon: <Info className="w-4 h-4" /> },
     { name: "Gallery", to: "/gallery", icon: <Image className="w-4 h-4" /> },

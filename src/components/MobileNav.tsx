@@ -13,6 +13,8 @@ import {
   ShoppingCart,
   PlusCircle,
   User,
+  Phone,
+  Shirt,
 } from "lucide-react";
 import {
   Sheet,
@@ -39,7 +41,7 @@ const MobileNav = () => {
     {
       name: "Products",
       to: "/products",
-      icon: <Package className="w-4 h-4" />,
+      icon: <Shirt className="w-4 h-4" />,
     },
     { name: "About", to: "/about", icon: <Info className="w-4 h-4" /> },
     { name: "Gallery", to: "/gallery", icon: <Image className="w-4 h-4" /> },
@@ -125,8 +127,15 @@ const MobileNav = () => {
                 to="/order"
                 className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
               >
-                <ShoppingCart className="w-4 h-4" />
+                <Package className="w-4 h-4" />
                 View Order
+              </Link>
+              <Link
+                to="/contact"
+                className="flex items-center gap-2 text-[#99775C] hover:text-[#582C12] transition"
+              >
+                <Phone className="w-4 h-4" />
+                Contact
               </Link>
 
               {currentUser?._id === targetId && (
