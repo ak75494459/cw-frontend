@@ -79,9 +79,9 @@ export function MyCarousel() {
             {products.map((product) => (
               <CarouselItem
                 key={product.id}
-                className="carousel-item basis-1/4 h-[100]"
+                className="carousel-item basis-1/4 h-[400px]" // 👈 Corrected height
               >
-                <div className="p-4 w-full h-[400px]  overflow-hidden relative">
+                <div className="p-4 w-full h-full overflow-hidden relative">
                   <div className="w-full h-full relative overflow-hidden">
                     <img
                       src={product.image}
