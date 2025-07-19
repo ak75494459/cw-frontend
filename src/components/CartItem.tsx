@@ -156,7 +156,10 @@ const CartItem: React.FC<CartItemProps> = ({
                     <p>
                       <span className="max-md:text-[0.7rem]">Size: </span>
                       <span className="font-medium max-md:text-[0.7rem]">
-                        {item.size || "N/A"}
+                        <span className="inline ">
+                          {(item.size?.slice(0, 6) || "N/A") +
+                            (item.size?.length! > 3 ? "..." : "")}
+                        </span>
                       </span>
                     </p>
 
@@ -218,7 +221,6 @@ const CartItem: React.FC<CartItemProps> = ({
                           <span className="text-green-700 font-semibold max-md:text-[0.7rem]">
                             ₹{discountedPrice.toFixed(2)}
                           </span>
-                         
                         </>
                       ) : (
                         <>₹{price.toFixed(2)}</>

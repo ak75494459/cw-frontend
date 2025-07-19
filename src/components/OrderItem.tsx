@@ -154,7 +154,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
                     </div>
                   </Link>
                   <div className="text-gray-600">Qty: {item.quantity}</div>
-                  <div className="text-gray-600">Size: {item.size}</div>
+                  <div className="text-gray-600">Size: {truncateWords(item.size,3)}</div>
                   <div className="text-gray-800 font-medium">
                     ₹{item.product.price}
                   </div>

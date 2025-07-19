@@ -1,11 +1,5 @@
 import React, { useState } from "react";
 import type { Product } from "@/types";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { useCreateAndUpdateCart, useGetMyCartData } from "@/api/MyCartApi";
 import { useCheckout } from "@/context/CheckOutContext";
 import CheckoutOverlay from "./CheckOutOverlay";
@@ -20,7 +14,9 @@ const standardSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [showSizeError, setShowSizeError] = useState(false); // New state for overlay
+  const [customSizeInput, setCustomSizeInput] = useState("");
+  const [customSizeConfirmed, setCustomSizeConfirmed] = useState(false);
+  const [showSizeError, setShowSizeError] = useState(false);
   const { addtoCart, isPending } = useCreateAndUpdateCart();
   const { setItems } = useCheckout();
   const [isOverlayOpen, setOverlayOpen] = useState(false);
@@ -42,6 +38,18 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const handleSizeSelect = (size: string, isAvailable: boolean) => {
     if (isAvailable) {
       setSelectedSize(size);
+      setCustomSizeInput("");
+      setCustomSizeConfirmed(false);
+      setShowSizeError(false);
+    }
+  };
+
+  const handleConfirmCustomSize = () => {
+    if (customSizeInput.trim() !== "") {
+      const confirmedSize = customSizeInput.trim();
+      setSelectedSize(confirmedSize);
+      setCustomSizeConfirmed(true);
+      setShowSizeError(false);
     }
   };
 
@@ -53,7 +61,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
       return;
     }
     if (!selectedSize) {
-      setShowSizeError(true); // Show overlay instead of alert
+      setShowSizeError(true);
       return;
     }
 
@@ -108,6 +116,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           {product.productName}
         </h1>
 
+        {/* Price */}
         <div>
           <p className="font-semibold">Price:</p>
           {product.discount && product.discount > 0 ? (
@@ -131,25 +140,26 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           )}
         </div>
 
+        {/* Brand & Category */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
           <div>
             <p className="font-semibold">Brand:</p>
             <p>{product.brand}</p>
           </div>
-
           <div>
             <p className="font-semibold">Category:</p>
             <p>{product.category}</p>
           </div>
         </div>
 
-        {/* Size Selector */}
+        {/* Size Selection */}
         <div>
           <p className="font-semibold">Choose Size:</p>
           <div className="flex flex-wrap gap-2 mt-2">
             {standardSizes.map((size) => {
               const isAvailable = product.sizes.includes(size);
-              const isSelected = selectedSize === size;
+              const isSelected =
+                selectedSize === size && customSizeInput === "";
               return (
                 <button
                   key={size}
@@ -170,6 +180,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           </div>
         </div>
 
+        {/* Size Chart */}
         <div className="flex gap-1 items-center mt-2">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -190,6 +201,40 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <path d="m17.5 15.5 2-2" />
           </svg>
           <p className="hover:underline cursor-pointer">Size Chart</p>
+        </div>
+
+        {/* Custom Size Input */}
+        <div className="mt-4">
+          <label htmlFor="customSize" className="block font-semibold mb-1">
+            Customize Size:
+          </label>
+          <input
+            id="customSize"
+            type="text"
+            value={customSizeInput}
+            maxLength={100}
+            onChange={(e) => {
+              const value = e.target.value;
+              setCustomSizeInput(value);
+              setSelectedSize(value.trim());
+              setCustomSizeConfirmed(false);
+            }}
+            placeholder="Enter your size (e.g., 34, Medium Tall)"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#492822] transition"
+          />
+          <p className="text-sm text-gray-500 mt-1">
+            {100 - customSizeInput.length} characters left
+          </p>
+          <button
+            onClick={handleConfirmCustomSize}
+            className={`mt-2 px-4 py-2 rounded transition text-white ${
+              customSizeConfirmed
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-[#492822] hover:bg-[#6b4337]"
+            }`}
+          >
+            {customSizeConfirmed ? "Size Confirmed ✓" : "Confirm Custom Size"}
+          </button>
         </div>
 
         {/* Quantity Selector */}
@@ -216,12 +261,11 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <button
           disabled={isPending}
           onClick={handleAddtoCart}
-          className={`w-full relative flex items-center justify-center overflow-hidden border-0 text-base transition-all duration-200  h-12
-    ${
-      isPending
-        ? "bg-gray-100 text-gray-500 cursor-not-allowed"
-        : "bg-transparent text-[#492822] hover:bg-[#492822] hover:text-white cursor-pointer group"
-    }`}
+          className={`w-full relative flex items-center justify-center overflow-hidden border-0 text-base transition-all duration-200 h-12 ${
+            isPending
+              ? "bg-gray-100 text-gray-500 cursor-not-allowed"
+              : "bg-transparent text-[#492822] hover:bg-[#492822] hover:text-white cursor-pointer group"
+          }`}
         >
           {isPending ? (
             <div className="flex items-center gap-2">
@@ -252,15 +296,12 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
           ) : (
             <>
               <span className="absolute left-0 h-full w-5 border-y border-l border-[#492822] transition-all duration-500 group-hover:w-full"></span>
-
               <p className="absolute transition-all duration-200 group-hover:opacity-0 group-hover:-translate-x-full">
                 Add to Cart
               </p>
-
               <span className="absolute opacity-0 translate-x-full transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0">
                 Only {product.stock} products are available
               </span>
-
               <span className="absolute right-0 h-full w-5 border-y border-r border-[#492822] transition-all duration-500 group-hover:w-full"></span>
             </>
           )}
@@ -273,39 +314,6 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         >
           Buy Now
         </button>
-
-        {/* Coupons Accordion */}
-        <div className="w-full mt-5 border bg-[#492822] p-4 text-white hideAccordion">
-          <p className="text-lg font-semibold mb-2">Available Coupons</p>
-          <Accordion type="single" collapsible className="w-full space-y-1">
-            <AccordionItem value="item-1">
-              <AccordionTrigger className="text-white font-bold no-underline hover:no-underline [&>svg]:text-white">
-                SAVE10
-              </AccordionTrigger>
-              <AccordionContent className="text-sm text-white ml-2">
-                Get 10% off on orders above ₹999
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-2">
-              <AccordionTrigger className="text-white font-bold no-underline hover:no-underline [&>svg]:text-white">
-                FREESHIP
-              </AccordionTrigger>
-              <AccordionContent className="text-sm text-white ml-2">
-                Free shipping on your first order
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem value="item-3">
-              <AccordionTrigger className="text-white font-bold no-underline hover:no-underline [&>svg]:text-white">
-                BUY2GET1
-              </AccordionTrigger>
-              <AccordionContent className="text-sm text-white ml-2">
-                Buy 2 items & get 1 free (select categories)
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
       </div>
 
       {/* Size selection error overlay */}
@@ -335,6 +343,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         isOpen={isOverlayOpen}
         onClose={() => setOverlayOpen(false)}
       />
+
       <style>{`
         @media (max-width: 1280px) {
           .hideAccordion {

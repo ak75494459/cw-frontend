@@ -214,7 +214,9 @@ const CheckOutProducts = () => {
                   <p className="text-gray-500">{item.product.brand}</p>
                   <p>
                     Size:{" "}
-                    <span className="font-medium">{item.size || "N/A"}</span>
+                    <span className="font-medium">
+                      {truncateWords(item.size!, 2) || "N/A"}
+                    </span>
                   </p>
                   <p>
                     Quantity:{" "}
