@@ -23,7 +23,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const { setItems } = useCheckout();
   const [isOverlayOpen, setOverlayOpen] = useState(false);
   const { refetchCart } = useGetMyCartData();
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   const increaseQuantity = () => {
     if (quantity < product.stock) {
@@ -76,9 +76,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const handleBuyNow = async () => {
     if (!isAuthenticated) {
-      await loginWithRedirect({
-        appState: { returnTo: window.location.pathname },
-      });
+      toast.error("Please login to add to cart");
       return;
     }
 

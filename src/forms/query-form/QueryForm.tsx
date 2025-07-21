@@ -50,9 +50,7 @@ const QueryForm = ({ onSubmitQuery, isLoading }: Props) => {
   // If not authenticated, redirect to login
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
-      loginWithRedirect({
-        appState: { returnTo: window.location.pathname },
-      });
+      loginWithRedirect();
     }
   }, [authLoading, isAuthenticated, loginWithRedirect]);
 
