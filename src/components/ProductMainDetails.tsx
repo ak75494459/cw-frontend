@@ -4,6 +4,7 @@ import { useCreateAndUpdateCart, useGetMyCartData } from "@/api/MyCartApi";
 import { useCheckout } from "@/context/CheckOutContext";
 import CheckoutOverlay from "./CheckOutOverlay";
 import { useAuth0 } from "@auth0/auth0-react";
+import { toast } from "sonner";
 
 interface ProductDetailsProps {
   product: Product;
@@ -56,9 +57,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
 
   const handleAddtoCart = async () => {
     if (!isAuthenticated) {
-      await loginWithRedirect({
-        appState: { returnTo: window.location.pathname },
-      });
+      toast.error("Please login to add to cart");
       return;
     }
     if (!selectedSize) {
