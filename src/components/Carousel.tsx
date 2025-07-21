@@ -14,30 +14,22 @@ const products = [
   {
     id: 1,
     image:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752882239/Raksha_3_swuual.png",
-    hoverImage:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752266845/stcfzxbuvuioajgc5zin.jpg",
+      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753034511/Pink_Beige_And_Yellow_Modern_Indian_Fashion_Instagram_Post_dzoldt.png",
   },
   {
     id: 2,
     image:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752500793/ChatGPT_Image_Jul_14_2025_07_15_32_PM_f24btk.png",
-    hoverImage:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752268038/rw90y4ppf7gu5jsx2p84.jpg",
+      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753034521/Gold_and_Black_Minimalist_Saree_House_Logo_xwlnkd.png",
   },
   {
     id: 3,
     image:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752502753/ChatGPT_Image_Jul_14_2025_at_07_48_20_PM_ascj4u.png",
-    hoverImage:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752271926/babxfck6lfzpb7uaahqp.jpg",
+      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753069021/Pink_Beige_And_Yellow_Modern_Customer_Testimonial_Instagram_Post_kepm9x.png",
   },
   {
     id: 4,
     image:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752501830/ChatGPT_Image_Jul_14_2025_07_33_03_PM_hbfk6q.png",
-    hoverImage:
-      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752273453/v3rdzyu6xqybbw1fwimh.jpg",
+      "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753094298/Brown_and_Purple_Simple_Clothing_Offer_Instagram_Post_1_jptjh5.png",
   },
 ];
 
@@ -56,7 +48,7 @@ export function MyCarousel() {
       <div className="text-center mt-10 mb-4">
         <h1 className="text-4xl font-bold text-[#333] tracking-wide relative inline-block">
           New Collections
-          <span className="block h-[3px] bg-[#99775C] mt-2 w-1/2  rounded-full"></span>
+          <span className="block h-[3px] bg-[#99775C] mt-2 w-1/2 m-auto  rounded-full"></span>
         </h1>
         <p className="text-gray-500 mt-2 text-sm">
           Discover our latest arrivals curated with style
@@ -86,12 +78,7 @@ export function MyCarousel() {
                     <img
                       src={product.image}
                       alt={`Product ${product.id}`}
-                      className="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-700 ease-in-out opacity-100 hover:opacity-0"
-                    />
-                    <img
-                      src={product.hoverImage}
-                      alt={`Product ${product.id} Hover`}
-                      className="w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-700 ease-in-out opacity-0 hover:opacity-100 hover:scale-110"
+                      className="w-full h-full object-cover absolute top-0 left-0 transition-transform duration-500 ease-in-out hover:scale-110"
                     />
                   </div>
                 </div>

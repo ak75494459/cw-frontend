@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { useCreateOrder } from "@/api/MyOrderApi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useClearCart } from "@/api/MyCartApi";
+import { useGetMyUser } from "@/api/MyUserApi";
 
 // ✅ Razorpay type
 declare global {
@@ -30,6 +31,7 @@ const CheckOutProducts = () => {
   const { validatePayment } = useValidateRazorpayPayment();
   const { createProductsOrder } = useCreateOrder();
   const { clearCart } = useClearCart();
+  const { currentUser } = useGetMyUser();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -102,7 +104,7 @@ const CheckOutProducts = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         amount: order.amount,
         currency: order.currency,
-        name: "Your Shop Name",
+        name: "ISHARAE",
         description: "Order Payment",
         order_id: order.id,
         handler: async function (response: any) {
@@ -160,9 +162,9 @@ const CheckOutProducts = () => {
           }
         },
         prefill: {
-          name: "John Doe",
-          email: "john@example.com",
-          contact: "+919999999999",
+          name: currentUser?.name || null,
+          email: currentUser?.email,
+          contact: currentUser?.number || "+919999999999",
         },
         notes: order.notes,
         theme: {
@@ -315,4 +317,4 @@ const CheckOutProducts = () => {
   );
 };
 
-export default CheckOutProducts;
+export default CheckOutProducts; // add cas on delivery and online payment select option before promocode and after products then when people select cod then paynow button is diffrent and when user select online payment then paynow button is that that handle razorpay paymenet

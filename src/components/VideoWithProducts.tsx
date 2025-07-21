@@ -1,6 +1,5 @@
 import React from "react";
 
-
 const imageColumns = [
   [
     "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg",
@@ -18,7 +17,7 @@ const VideoWithGallery: React.FC = () => {
       <div className="w-full   lg:w-[50%] p-5 flex justify-center items-center  ">
         <video
           className="w-[90%] h-[90%] max-md:w-full max-md:h-full   rounded-lg  object-cover"
-          src="https://res.cloudinary.com/dmv8kh0yx/video/upload/v1750870796/video_yex1fm.mp4"
+          src="https://res.cloudinary.com/dmv8kh0yx/video/upload/v1753034943/Green_and_Cream_Elegant_Saree_Fashion_Logo_20250720_232424_0001_nydoec.mp4"
           autoPlay
           muted
           loop

@@ -9,7 +9,7 @@ interface ProductDetailsProps {
   product: Product;
 }
 
-const standardSizes = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+const standardSizes = ["XS", "S", "M", "L"];
 
 const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -17,6 +17,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [customSizeInput, setCustomSizeInput] = useState("");
   const [customSizeConfirmed, setCustomSizeConfirmed] = useState(false);
   const [showSizeError, setShowSizeError] = useState(false);
+  const [showSizeChart, setShowSizeChart] = useState(false); // 👈 NEW
   const { addtoCart, isPending } = useCreateAndUpdateCart();
   const { setItems } = useCheckout();
   const [isOverlayOpen, setOverlayOpen] = useState(false);
@@ -181,7 +182,10 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         </div>
 
         {/* Size Chart */}
-        <div className="flex gap-1 items-center mt-2">
+        <div
+          className="flex gap-1 items-center mt-2 cursor-pointer hover:underline"
+          onClick={() => setShowSizeChart(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="28"
@@ -200,7 +204,7 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             <path d="m8.5 6.5 2-2" />
             <path d="m17.5 15.5 2-2" />
           </svg>
-          <p className="hover:underline cursor-pointer">Size Chart</p>
+          <p>Size Chart</p>
         </div>
 
         {/* Custom Size Input */}
@@ -335,6 +339,25 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
             >
               Close
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* ✅ Size Chart Overlay */}
+      {showSizeChart && (
+        <div
+          className="fixed inset-0 bg-black/70  flex items-center justify-center z-50 px-4"
+          onClick={() => setShowSizeChart(false)}
+        >
+          <div
+            className="bg-white p-4 rounded-md max-w-2xl w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src="https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753037945/WhatsApp_Image_2025-07-21_at_00.09.06_p2uhdp.jpg"
+              alt="Size Chart"
+              className="w-full h-auto object-contain"
+            />
           </div>
         </div>
       )}
