@@ -5,6 +5,7 @@ import { useCheckout } from "@/context/CheckOutContext";
 import CheckoutOverlay from "./CheckOutOverlay";
 import { useAuth0 } from "@auth0/auth0-react";
 import { toast } from "sonner";
+import { RotateCcw, Scissors, Shirt } from "lucide-react";
 
 interface ProductDetailsProps {
   product: Product;
@@ -315,6 +316,26 @@ const ProductMainDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         >
           Buy Now
         </button>
+        {/* Feature Highlights */}
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2 text-[#492822]">
+          {/* Customize Fitting */}
+          <div className="flex items-center justify-center px-4 py-2 border border-[#492822] bg-[#f9f4f2] rounded-md gap-2 shadow-sm">
+            <Scissors className="w-5 h-5" />
+            <p className="text-sm font-semibold">Customize Fitting</p>
+          </div>
+
+          {/* 7 Days Easy Return */}
+          <div className="flex items-center justify-center px-4 py-2 border border-[#492822] bg-[#f9f4f2] rounded-md gap-2 shadow-sm">
+            <RotateCcw className="w-5 h-5" />
+            <p className="text-sm font-semibold">7 Days Easy Return</p>
+          </div>
+
+          {/* Customize Kurti */}
+          <div className="flex items-center justify-center px-4 py-2 border border-[#492822] bg-[#f9f4f2] rounded-md gap-2 shadow-sm">
+            <Shirt className="w-5 h-5" />
+            <p className="text-sm font-semibold">Customize Kurti</p>
+          </div>
+        </div>
       </div>
 
       {/* Size selection error overlay */}
