@@ -15,11 +15,7 @@ declare global {
   }
 }
 
-const validCoupons = [
-  { code: "SAVE10", discount: 10 },
-  { code: "FASHION20", discount: 20 },
-  { code: "ARYAN25", discount: 25 },
-];
+const validCoupons = [{ code: "RAKHI20", discount: 20 }];
 
 const CheckOutProducts = () => {
   const { items, selectedAddress } = useCheckout();
@@ -64,12 +60,6 @@ const CheckOutProducts = () => {
 
   // ✅ ----------- Apply Coupon -----------
   const handleApplyCoupon = () => {
-    if (subtotal <= 1000) {
-      setCouponError("❌ Coupons are only valid for orders above ₹1000");
-      setAppliedDiscount(0);
-      return;
-    }
-
     const coupon = validCoupons.find(
       (c) => c.code.toLowerCase() === couponCode.toLowerCase()
     );
@@ -273,7 +263,7 @@ const CheckOutProducts = () => {
         {couponError && (
           <p className="text-red-600 text-sm mt-1">{couponError}</p>
         )}
-        {appliedDiscount > 0 && subtotal > 1000 && (
+        {appliedDiscount > 0 && (
           <p className="text-green-600 text-sm mt-1">
             ✅ Coupon applied! {appliedDiscount}% off
           </p>
