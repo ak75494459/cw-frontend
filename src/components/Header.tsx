@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import MobileNav from "./MobileNav";
 import MainNav from "./MainNav";
-import logo from "/logo3t.png";
 
 const Header = () => {
   return (
@@ -10,23 +9,19 @@ const Header = () => {
         to="/products"
         className="relative group transition-all duration-300 ease-in-out"
       >
-        <img
-          src={logo}
-          alt="Logo"
-          className="
-            w-24
-            sm:w-24
-            md:w-34
-           lg:w-34
-            xl:w-34
-            max-w-full
-            h-auto
-            transition-all
-            duration-300
-            ease-in-out
-            group-hover:scale-105
-          "
-        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-24 sm:w-24 md:w-34 lg:w-34 xl:w-34 max-w-full h-auto transition-all duration-300 ease-in-out group-hover:scale-105"
+        >
+          <source
+            src="https://res.cloudinary.com/dmv8kh0yx/video/upload/v1753228856/output_oblmom.webm"
+            type="video/webm"
+          />
+          Your browser does not support the video tag.
+        </video>
       </Link>
 
       {/* Mobile Menu */}
