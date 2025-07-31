@@ -2,12 +2,24 @@ import React from "react";
 
 const imageColumns = [
   [
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg",
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg",
+    {
+      src: "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753470200/mrccmwq26daploilb7zm.jpg",
+      link: "https://isharae.com/products/6883d4f9879625f3928de5da",
+    },
+    {
+      src: "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753659699/IMG_9361_zcl1fq.jpg",
+      link: "https://isharae.com/products/6883dbd2879625f3928de629",
+    },
   ],
   [
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg",
-    "https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg",
+    {
+      src: "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753471423/rtqmhwnmatx55lsoecdy.jpg",
+      link: "https://isharae.com/products/6883d9c0879625f3928de602",
+    },
+    {
+      src: "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753469779/rfqhrzhhmsgtdm1hvs6k.jpg",
+      link: "https://isharae.com/products/6883d354879625f3928de5c3",
+    },
   ],
 ];
 
@@ -31,16 +43,18 @@ const VideoWithGallery: React.FC = () => {
               className="flex flex-col gap-8 h-auto md:h-[90%] w-full"
               key={colIndex}
             >
-              {column.map((src, imgIndex) => (
+              {column.map((item, imgIndex) => (
                 <div
                   key={imgIndex}
                   className="flex-1 overflow-hidden   rounded-full shadow-md"
                 >
-                  <img
-                    src={src}
-                    alt={`Gallery ${colIndex}-${imgIndex}`}
-                    className="w-full h-full object-cover"
-                  />
+                  <a href={item.link} rel="noopener noreferrer">
+                    <img
+                      src={item.src}
+                      alt={`Gallery ${colIndex}-${imgIndex}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </a>
                 </div>
               ))}
             </div>

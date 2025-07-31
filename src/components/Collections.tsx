@@ -1,12 +1,32 @@
 import React from "react";
 
 const Collections: React.FC = () => {
-  const collectionItems: string[] = [
-    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752500793/ChatGPT_Image_Jul_14_2025_07_15_32_PM_f24btk.png",
-    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752502753/ChatGPT_Image_Jul_14_2025_at_07_48_20_PM_ascj4u.png",
-    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752501648/ChatGPT_Image_Jul_14_2025_at_07_30_30_PM_nlem2s.png",
-    "https://img.theloom.in/blog/wp-content/uploads/2023/09/14-03-23-918-e1695289116121.png",
-    "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1752501830/ChatGPT_Image_Jul_14_2025_07_33_03_PM_hbfk6q.png",
+  const collectionItems: { image: string; link: string }[] = [
+    {
+      image:
+        "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753659699/IMG_9361_zcl1fq.jpg",
+      link: "http://isharae.com/products/6883dbd2879625f3928de629",
+    },
+    {
+      image:
+        "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753471423/rtqmhwnmatx55lsoecdy.jpg",
+      link: "https://isharae.com/products/6883d9c0879625f3928de602",
+    },
+    {
+      image:
+        "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753468158/hsdgq6navdzy2db0aoc2.jpg",
+      link: "https://isharae.com/products/6883ccff879625f3928de55c",
+    },
+    {
+      image:
+        "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753383123/dotb91mfg4ebc8hdys2j.jpg",
+      link: "https://isharae.com/products/688280d31657f82965b03b85",
+    },
+    {
+      image:
+        "https://res.cloudinary.com/dmv8kh0yx/image/upload/v1753469779/rfqhrzhhmsgtdm1hvs6k.jpg",
+      link: "https://isharae.com/products/6883d354879625f3928de5c3",
+    },
   ];
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -129,52 +149,52 @@ const Collections: React.FC = () => {
             {/* Upper Row */}
             <div className="flex justify-center flex-wrap gap-20 md:gap-35 lg:gap-45">
               {topRow.map((item, index) => (
-                <div
-                  key={index}
-                  className={`
-                    bg-white rounded-full border-4 border-[#492822] overflow-hidden
-                    w-30 h-30
-                    md:w-32 md:h-32
-                    lg:w-40 lg:h-40
-                    transition-all duration-300
-                    float-bounce
-                    animate-delay-${index * 500}
-                  `}
-                  style={{ animationDelay: `${index * 0.5}s` }}
-                >
-                  <img
-                    src={item}
-                    alt={`Item ${index + 1}`}
-                    className="w-full h-full object-cover
-                    "
-                  />
-                </div>
+                <a href={item.link} key={index}>
+                  <div
+                    className={`
+                      bg-white rounded-full border-4 border-[#492822] overflow-hidden
+                      w-30 h-30
+                      md:w-32 md:h-32
+                      lg:w-40 lg:h-40
+                      transition-all duration-300
+                      float-bounce
+                    `}
+                    style={{ animationDelay: `${index * 0.5}s` }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={`Item ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </a>
               ))}
             </div>
 
             {/* Lower Row */}
             <div className="flex justify-center flex-wrap gap-20 md:gap-35 lg:gap-45">
               {bottomRow.map((item, index) => (
-                <div
-                  key={index + topRow.length}
-                  className={`
-                    bg-white rounded-full border-4 border-[#492822] overflow-hidden
-                    w-30 h-30
-                    md:w-32 md:h-32
-                    lg:w-40 lg:h-40
-                    transition-all duration-300
-                    float-bounce
-                  `}
-                  style={{
-                    animationDelay: `${(index + topRow.length) * 0.5}s`,
-                  }}
-                >
-                  <img
-                    src={item}
-                    alt={`Item ${index + topRow.length + 1}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <a href={item.link} key={index + topRow.length}>
+                  <div
+                    className={`
+                      bg-white rounded-full border-4 border-[#492822] overflow-hidden
+                      w-30 h-30
+                      md:w-32 md:h-32
+                      lg:w-40 lg:h-40
+                      transition-all duration-300
+                      float-bounce
+                    `}
+                    style={{
+                      animationDelay: `${(index + topRow.length) * 0.5}s`,
+                    }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={`Item ${index + topRow.length + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </a>
               ))}
             </div>
           </div>
